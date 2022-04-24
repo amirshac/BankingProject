@@ -20,7 +20,7 @@ public abstract class Menu {
 	}
 	
 	public void print() {
-		String msg = "<<"+this.title+">>\n";
+		String msg = this.title;
 		for (int i=0; i<optionList.size(); i++){
 			msg += String.format("[%d] %s%n", i, optionList.get(i));
 		}
