@@ -5,8 +5,27 @@ import Banking.Users.*;
 import Banking.Account.*;
 
 public class DataBase {
-	public static LinkedList<Person> personList = new LinkedList<>();
-	//public static LinkedList<Account> accountLIst = new LinkedList<>();
+	
+//	public static LinkedList<Person> personList = new LinkedList<>();
+	private static int DB_SIZE = 100;
+	private static int index = 0;
+	
+	public static Person[] personArr = new Person[DB_SIZE];
+	
+	
+	private static void addPersonToDB(Person person) {
+		if (index >= DB_SIZE) {
+			System.out.println("ERROR DataBase Limit reached can't insert");
+			return;
+		}
+		
+		personArr[index] = person;
+		index++;
+	}
+	
+	public int getSize() {
+		return index;
+	}
 	
 	/**
 	 * Populates database with some demo users, including bank manager
@@ -30,7 +49,7 @@ public class DataBase {
 		credentials = new Credentials("admin", "admin11");
 		bankManager.setCredentials(credentials);
 		
-		personList.add(bankManager);
+		addPersonToDB(bankManager);
 	
 		
 		income = 3000;
@@ -41,34 +60,34 @@ public class DataBase {
 		credentials = new Credentials("amir", "amir11");
 		
 		accountUser = new AccountUser(person, income, account);
-		personList.add(accountUser);
+		addPersonToDB(accountUser);
 		
 		income = 9000;
 		balance = 22453;	
 		person = new Person("Ben", "Bigsby", "0520000003", LocalDate.of(1988, 1, 4));
 		account = new Account(balance, AccountProperties.SILVER);
 		accountUser = new AccountUser(person, income, account);
-		personList.add(accountUser);
+		addPersonToDB(accountUser);
 		
 		income = 15000;
 		balance = 34898;	
 		person = new Person("Cody", "Connor", "0520000004", LocalDate.of(1960, 5, 23));
 		account = new Account(balance, AccountProperties.GOLD);
 		accountUser = new AccountUser(person, income, account);
-		personList.add(accountUser);
+		addPersonToDB(accountUser);
 		
 		income = 20000;
 		balance = 943112;	
 		person = new Person("Dory", "Dorshowitz", "0520000005", LocalDate.of(1962, 4, 23));
 		account = new Account(balance, AccountProperties.TITANIUM);
 		accountUser = new AccountUser(person, income, account);
-		personList.add(accountUser);
+		addPersonToDB(accountUser);
 	}
 	
 	public static void print() {
-		System.out.println(personList.size() + " elements in database:\n");
-		for (Person person : personList) {
-			System.out.println(person);
+		System.out.println(index + " elements in database:\n");
+		for (int i=0; i<index; i++) {
+			System.out.println(personArr[i]);
 			System.out.println();
 		}
 	}

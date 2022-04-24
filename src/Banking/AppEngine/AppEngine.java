@@ -58,6 +58,10 @@ public class AppEngine {
 	}
 	
 	private void handleLoginScreen() {
+		login("admin", "admin11");
+	}
+	
+	private void login(String userName, String Password) {
 		
 	}
 	

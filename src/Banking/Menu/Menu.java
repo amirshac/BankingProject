@@ -6,12 +6,14 @@ import java.util.Scanner;
 public abstract class Menu {
 	private static final String DEFAULT_MENU_TITLE = "MENU";
 	private static final String DEFAULT_ERROR_MSG = "Wrong input please try again";
+	private static final int MENU_MAX_SIZE = 10;
 
 	public static Scanner scanner = new Scanner(System.in);
 	
+	protected int index;
 	protected String title;
-	protected ArrayList<String> optionList;
-	protected ArrayList<String> commandList;
+	protected String[] optionList;
+	protected String[] commandList;
 	
 	protected String choice;
 	
@@ -21,14 +23,22 @@ public abstract class Menu {
 	
 	public Menu(String title) {
 		setTitle(title);
-		optionList = new ArrayList<>();
-		commandList = new ArrayList<>();
+		optionList = new String[MENU_MAX_SIZE];
+		commandList = new String[MENU_MAX_SIZE];
 		choice = new String();
+		index = 0;
 	}
 
 	public void addOption(String optionName, String optionCommand) {
-		optionList.add(optionName);
-		commandList.add(optionCommand);
+		
+		if (index >= MENU_MAX_SIZE) {
+			System.out.println("Error menu size reached, can't add options");
+			return;
+		}
+		
+		optionList[index] = optionName;
+		commandList[index] = optionCommand;
+		index ++;
 	}
 	
 	public void setTitle(String title) {
@@ -40,8 +50,8 @@ public abstract class Menu {
 	 */
 	private void print() {
 		String msg = this.title + "\n";
-		for (int i=0; i<optionList.size(); i++){
-			msg += String.format("[%s] %s%n", commandList.get(i), optionList.get(i));
+		for (int i=0; i<index; i++){
+			msg += String.format("[%s] %s%n", commandList[i], optionList[i]);
 		}
 		System.out.println(msg);
 	}
@@ -78,7 +88,12 @@ public abstract class Menu {
 	private boolean isValidChoice(String choiceStr) {
 		boolean result = false;
 		
-		result = commandList.contains(choiceStr);
+		for (int i=0; i<index; i++) {
+			if (choiceStr.equals(commandList[i])) {
+				result = true;
+				break;
+			}
+		}
 		
 		return result;
 	}

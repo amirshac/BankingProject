@@ -11,6 +11,8 @@ public class Runner {
 
 	public static void main(String[] args) {		
 		DataBase.populateDataBase();
+		//DataBase.print();
+		
 		AppEngine engine = new AppEngine();
 		engine.play();
 	}
