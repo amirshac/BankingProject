@@ -6,7 +6,7 @@ import Banking.Account.*;
 
 public class DataBase {
 	public static LinkedList<Person> personList = new LinkedList<>();
-	public static LinkedList<Account> accountLIst = new LinkedList<>();
+	//public static LinkedList<Account> accountLIst = new LinkedList<>();
 	
 	/**
 	 * Populates database with some demo users, including bank manager
@@ -45,7 +45,7 @@ public class DataBase {
 		
 		income = 9000;
 		balance = 22453;	
-		person = new Person("Ben", "Bublil", "0520000003", LocalDate.of(1988, 1, 4));
+		person = new Person("Ben", "Bigsby", "0520000003", LocalDate.of(1988, 1, 4));
 		account = new Account(balance, AccountProperties.SILVER);
 		accountUser = new AccountUser(person, income, account);
 		personList.add(accountUser);

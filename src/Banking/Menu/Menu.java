@@ -1,18 +1,20 @@
 package Banking.Menu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public abstract class Menu {
 	private static final String DEFAULT_MENU_TITLE = "MENU";
 	private static final String DEFAULT_ERROR_MSG = "Wrong input please try again";
-	private static final int DEFAULT_MIN_VALUE = 0;
+
 	private static Scanner scanner;
 	
 	protected String title;
 	protected ArrayList<String> optionList;
+	protected ArrayList<String> commandList;
 	
-	private int choice;
+	protected String choice;
 	
 	public Menu() {
 		this(DEFAULT_MENU_TITLE);
@@ -21,11 +23,12 @@ public abstract class Menu {
 	public Menu(String title) {
 		setTitle(title);
 		optionList = new ArrayList<>();
-		choice = 0;
+		commandList = new ArrayList<>();
 	}
 
-	public void addOption(String optionName) {
+	public void addOption(String optionName, String optionCommand) {
 		optionList.add(optionName);
+		commandList.add(optionCommand);
 	}
 	
 	public void setTitle(String title) {
@@ -38,7 +41,7 @@ public abstract class Menu {
 	private void print() {
 		String msg = this.title + "\n";
 		for (int i=0; i<optionList.size(); i++){
-			msg += String.format("[%d] %s%n", i, optionList.get(i));
+			msg += String.format("[%s] %s%n", commandList.get(i), optionList.get(i));
 		}
 		
 		System.out.println(msg);
@@ -49,30 +52,33 @@ public abstract class Menu {
 	 */
 	public void play() {
 		scanner = new Scanner(System.in);
+		String inputStr;
 		
 		boolean keepGoing = true;
 		
 		while (keepGoing) {
 			this.print();
-			choice = Integer.parseInt(scanner.nextLine());
 
-			if (!isValidChoice(choice)) 
-				System.out.println(DEFAULT_ERROR_MSG);
+			inputStr = scanner.nextLine();
 			
-			keepGoing = !isValidChoice(choice);
+			if (!isValidChoice(inputStr))
+				System.out.println(DEFAULT_ERROR_MSG);	
+			else
+				keepGoing = false;
+			
 		}
 		scanner.close();
 	}
 	
 	/**
-	 * Checks if choice is within range of menu
+	 * Checks if choice is within range of commands
 	 * @param choice
 	 * @return true / false if choice is valid
 	 */
-	private boolean isValidChoice(int choice) {
-		boolean result = true;
-		if (choice < DEFAULT_MIN_VALUE || choice > this.optionList.size())
-			result = false;
+	private boolean isValidChoice(String choiceStr) {
+		boolean result = false;
+		
+		result = commandList.contains(choiceStr);
 		
 		return result;
 	}
