@@ -10,7 +10,7 @@ public enum AccountProperties {
 	double maxLoan, maxWithdrawalDaily;
 	
 	float interest, operationFee;
-	
+		
 	AccountProperties(float interestMin, float interestMax, float operationFeeMin, 
 			float operationFeeMax, double maxLoan, double maxWithdrawalDaily) {
 		this.interestMin = interestMin;
@@ -38,7 +38,7 @@ public enum AccountProperties {
 		if (operationFee >= operationFeeMin && operationFee < operationFeeMax )
 			this.operationFee = operationFee;
 		else 
-			System.out.println("Interest rate not within limits");
+			System.out.println("Operation Fee not within limits");
 	}
 	
 	public float getInterest() {
