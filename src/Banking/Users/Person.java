@@ -9,6 +9,9 @@ public class Person {
 	protected LocalDate birthDate;
 	
 	private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.of(2000, 1, 1);
+	private static final String DEFAULT_FIRSTNAME = "DEFAULT";
+	private static final String DEFAULT_LASTNAME = "DEFAULT";
+	private static final String DEFAULT_PHONENUMBER = "0000000000";
 	
 	// constructors
 	public Person(String firstName, String lastName, String phoneNumber, LocalDate birthDate) {
@@ -23,6 +26,13 @@ public class Person {
 		this(firstName, lastName, phoneNumber, DEFAULT_BIRTH_DATE);
 	}
 	
+	public Person() {
+		this(DEFAULT_FIRSTNAME, DEFAULT_LASTNAME, DEFAULT_PHONENUMBER);
+	}
+	
+	public Person(Person person) {
+		this(person.firstName, person.lastName, person.phoneNumber, person.birthDate);
+	}
 	
 	@Override
 	public String toString() {

@@ -22,7 +22,6 @@ public class Account {
 		this.accountProperties = accountProperties;
 	}
 
-
 	// setters getters
 	
 	public double getBalance() {
