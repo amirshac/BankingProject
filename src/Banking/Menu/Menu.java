@@ -1,14 +1,13 @@
 package Banking.Menu;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public abstract class Menu {
 	private static final String DEFAULT_MENU_TITLE = "MENU";
 	private static final String DEFAULT_ERROR_MSG = "Wrong input please try again";
 
-	private static Scanner scanner;
+	public static Scanner scanner = new Scanner(System.in);
 	
 	protected String title;
 	protected ArrayList<String> optionList;
@@ -24,6 +23,7 @@ public abstract class Menu {
 		setTitle(title);
 		optionList = new ArrayList<>();
 		commandList = new ArrayList<>();
+		choice = new String();
 	}
 
 	public void addOption(String optionName, String optionCommand) {
@@ -43,7 +43,6 @@ public abstract class Menu {
 		for (int i=0; i<optionList.size(); i++){
 			msg += String.format("[%s] %s%n", commandList.get(i), optionList.get(i));
 		}
-		
 		System.out.println(msg);
 	}
 	
@@ -51,8 +50,7 @@ public abstract class Menu {
 	 * Displays menu and asks for input until input is valid
 	 */
 	public void play() {
-		scanner = new Scanner(System.in);
-		String inputStr;
+		String inputStr = null;
 		
 		boolean keepGoing = true;
 		
@@ -67,7 +65,9 @@ public abstract class Menu {
 				keepGoing = false;
 			
 		}
-		scanner.close();
+		
+		this.choice = inputStr;
+		
 	}
 	
 	/**
@@ -81,6 +81,11 @@ public abstract class Menu {
 		result = commandList.contains(choiceStr);
 		
 		return result;
+	}
+	
+	// setters getters
+	public String getChoice() {
+		return this.choice;
 	}
 	
 	@Override
