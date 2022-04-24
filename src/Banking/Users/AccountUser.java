@@ -18,12 +18,19 @@ public class AccountUser extends Person {
 		this.account = account;	
 	}
 
+	public AccountUser(Person person, double monthlyIncome, Account account, Credentials credentials) {
+		super(person);
+		this.account = account;
+		this.monthlyIncome = monthlyIncome;
+		this.credentials = credentials;
+	}
+	
 	public AccountUser(Person person, double monthlyIncome, Account account) {
 		super(person);
 		this.account = account;
 		this.monthlyIncome = monthlyIncome;
 	}
-	
+
 	public AccountUser(Person person, double monthlyIncome) {
 		super(person);
 		this.account = null;
@@ -66,14 +73,17 @@ public class AccountUser extends Person {
 		this.account = account;
 	}
 
-	protected void setCredentials(Credentials cred) {
+	public void setCredentials(Credentials cred) {
 		this.credentials = cred;
 	}
 	
 	@Override
 	public String toString() {
 		String msg = super.toString();
-		msg += "\n<AccountUser>[monthlyIncome=" + monthlyIncome + ", account=" + account + "]";
+		msg += "\n<AccountUser>\n[monthlyIncome = " + monthlyIncome 
+				+ "\naccount = " + account  
+				+ "\ncredentials = " + credentials + "]\n"
+				+ "</AccountUser>";
 		return msg;
 	}
 	

@@ -36,8 +36,9 @@ public class Person {
 	
 	@Override
 	public String toString() {
-		return "<Person>[firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
-				+ ", birthDate=" + birthDate + "]";
+		return "<Person>\n"
+				+ "[firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
+				+ ", birthDate=" + birthDate + "]\n</Person>";
 	}
 
 	// setters getters

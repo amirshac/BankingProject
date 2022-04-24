@@ -43,7 +43,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "<Account> [balance=" + balance + ", accountProperties=" + accountProperties + "]";
+		return "<Account>[balance=" + balance + ", accountProperties=" + accountProperties + "]</Account>";
 	}
 	
 	

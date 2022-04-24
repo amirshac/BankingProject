@@ -23,12 +23,20 @@ public class DataBase {
 		person = new Person("Donald", "Trump", "0520000001", LocalDate.of(1946, 7, 14));
 		account = new Account(balance, AccountProperties.TITANIUM);
 		bankManager = new BankManagerUser(person, income, account);
+		
+		credentials = new Credentials("admin", "admin11");
+		bankManager.setCredentials(credentials);
+		
 		personList.add(bankManager);
 	
+		
 		income = 3000;
 		balance = 500;
+		
 		person = new Person("Amir", "Arison", "0520000002", LocalDate.of(1983, 4, 12));
 		account = new Account(balance, AccountProperties.BRONZE);
+		credentials = new Credentials("amir", "amir11");
+		
 		accountUser = new AccountUser(person, income, account);
 		personList.add(accountUser);
 		
