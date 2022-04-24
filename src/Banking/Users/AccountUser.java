@@ -77,6 +77,28 @@ public class AccountUser extends Person {
 		this.credentials = cred;
 	}
 	
+	public void setCredentials(String user, String password) {
+		this.credentials = new Credentials(user, password);
+	}
+	
+	public Credentials getCredentials() {
+		return this.credentials;
+	}
+	
+	public String getUserName() {
+		if (this.credentials == null)
+				return null;
+		
+		return this.credentials.getUserName();
+	}
+	
+	public String getPassword() {
+		if (this.credentials == null)
+			return null;
+		
+		return this.credentials.getPassword();
+	}
+	
 	@Override
 	public String toString() {
 		String msg = super.toString();

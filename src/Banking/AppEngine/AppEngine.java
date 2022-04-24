@@ -1,5 +1,6 @@
 package Banking.AppEngine;
 
+import Banking.DataBase.DataBase;
 import Banking.Menu.*;
 import Banking.Users.*;
 
@@ -58,11 +59,25 @@ public class AppEngine {
 	}
 	
 	private void handleLoginScreen() {
-		login("admin", "admin11");
+		
 	}
 	
-	private void login(String userName, String Password) {
+	public boolean login(String userName, String password) {
+		boolean result = false;
+		AccountUser user = null;
 		
+		user = DataBase.getAccountUserUsingCredentials(userName, password);
+		
+		if (user == null) {
+			System.out.println("Invalid user credentials, login denied");
+			result = false;
+		}else {
+			System.out.println("Found user!" + user);
+			this.currentUser = user;
+			result = true;
+		}
+		
+		return result;
 	}
 	
 	private void quit() {

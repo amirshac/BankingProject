@@ -11,9 +11,10 @@ public class Runner {
 
 	public static void main(String[] args) {		
 		DataBase.populateDataBase();
-		//DataBase.print();
+	//	DataBase.print();
 		
 		AppEngine engine = new AppEngine();
-		engine.play();
+		//engine.play();
+		engine.login("dory", "dory11");
 	}
 }

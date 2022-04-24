@@ -1,6 +1,5 @@
 package Banking.Menu;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Menu {
@@ -75,9 +74,7 @@ public abstract class Menu {
 				keepGoing = false;
 			
 		}
-		
-		this.choice = inputStr;
-		
+		this.choice = inputStr;	
 	}
 	
 	/**

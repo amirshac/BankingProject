@@ -10,22 +10,102 @@ public class DataBase {
 	private static int DB_SIZE = 100;
 	private static int index = 0;
 	
-	public static Person[] personArr = new Person[DB_SIZE];
-	
-	
-	private static void addPersonToDB(Person person) {
+	public static AccountUser[] personArr = new AccountUser[DB_SIZE];
+
+	/**
+	 * Adds user to database
+	 * @param user
+	 */
+	private static void addPersonToDB(AccountUser user) {
 		if (index >= DB_SIZE) {
 			System.out.println("ERROR DataBase Limit reached can't insert");
 			return;
 		}
 		
-		personArr[index] = person;
+		personArr[index] = user;
 		index++;
 	}
 	
 	public int getSize() {
 		return index;
 	}
+	
+	/**
+	 * 
+	 * @param userName
+	 * @return true/ false whether username exists in database
+	 */
+	public static boolean doesUsernameExist(String userName) {
+		boolean result = false;
+		String str;
+		
+		for (int i=0; i<index; i++) {
+			str = personArr[i].getUserName();
+			
+			if (userName.equals(str)) {
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param userName
+	 * @return index of username user object in database, -1 if not found
+	 */
+	public static int getIndexOfUsername(String userName) {
+		int result = -1;
+		String str;
+		
+		for (int i=0; i<index; i++) {
+			str = personArr[i].getUserName();
+			
+			if (userName.equals(str)) {
+				result = i;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param credentials
+	 * @return AccountUser with said credentials or NULL if credentials were wrong
+	 */
+	public static AccountUser getAccountUserUsingCredentials(Credentials credentials) {
+		AccountUser result = null;
+		String password;
+		
+		int index = getIndexOfUsername(credentials.getUserName());
+		if (index == -1) return null;
+		
+		password = personArr[index].getPassword();
+		if (password == null) return null;
+		
+		if (password.equals(credentials.getPassword()))
+			result = personArr[index];
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return AccountUser with said credentials or NULL if credentials were wrong
+	 */
+	public static AccountUser getAccountUserUsingCredentials(String userName, String password) {
+		AccountUser result = null;
+		Credentials credentials = new Credentials(userName, password);
+		result = getAccountUserUsingCredentials(credentials);
+		return result;
+	}
+		
 	
 	/**
 	 * Populates database with some demo users, including bank manager
@@ -58,8 +138,7 @@ public class DataBase {
 		person = new Person("Amir", "Arison", "0520000002", LocalDate.of(1983, 4, 12));
 		account = new Account(balance, AccountProperties.BRONZE);
 		credentials = new Credentials("amir", "amir11");
-		
-		accountUser = new AccountUser(person, income, account);
+		accountUser = new AccountUser(person, income, account, credentials);
 		addPersonToDB(accountUser);
 		
 		income = 9000;
@@ -67,6 +146,7 @@ public class DataBase {
 		person = new Person("Ben", "Bigsby", "0520000003", LocalDate.of(1988, 1, 4));
 		account = new Account(balance, AccountProperties.SILVER);
 		accountUser = new AccountUser(person, income, account);
+		accountUser.setCredentials("benben", "ben11");
 		addPersonToDB(accountUser);
 		
 		income = 15000;
@@ -74,6 +154,7 @@ public class DataBase {
 		person = new Person("Cody", "Connor", "0520000004", LocalDate.of(1960, 5, 23));
 		account = new Account(balance, AccountProperties.GOLD);
 		accountUser = new AccountUser(person, income, account);
+		accountUser.setCredentials("cody", "cody11");
 		addPersonToDB(accountUser);
 		
 		income = 20000;
@@ -81,6 +162,7 @@ public class DataBase {
 		person = new Person("Dory", "Dorshowitz", "0520000005", LocalDate.of(1962, 4, 23));
 		account = new Account(balance, AccountProperties.TITANIUM);
 		accountUser = new AccountUser(person, income, account);
+		accountUser.setCredentials("dory", "dory11");
 		addPersonToDB(accountUser);
 	}
 	
