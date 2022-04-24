@@ -36,17 +36,28 @@ public class DataBase {
 	 * @return true/ false whether username exists in database
 	 */
 	public static boolean doesUsernameExist(String userName) {
-		boolean result = false;
-		String str;
+		boolean result = true;
 		
-		for (int i=0; i<index; i++) {
-			str = personArr[i].getUserName();
-			
-			if (userName.equals(str)) {
-				result = true;
-				break;
-			}
-		}
+		int index = getIndexOfUsername(userName);
+		
+		if (index == -1)
+			result = false;
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param phonenumber
+	 * @return true/ false whether phonenumber exists in database
+	 */
+	public static boolean doesPhoneNumberExist(String phoneNumber) {
+		boolean result = true;
+		
+		int index = getIndexOfPhoneNumber(phoneNumber);
+		
+		if (index == -1)
+			result = false;
 		
 		return result;
 	}
@@ -54,7 +65,7 @@ public class DataBase {
 	/**
 	 * 
 	 * @param userName
-	 * @return index of username user object in database, -1 if not found
+	 * @return index of user object in database, -1 if not found
 	 */
 	public static int getIndexOfUsername(String userName) {
 		int result = -1;
@@ -64,6 +75,27 @@ public class DataBase {
 			str = personArr[i].getUserName();
 			
 			if (userName.equals(str)) {
+				result = i;
+				break;
+			}
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 
+	 * @param phoneNumber
+	 * @return index of user object in database, -1 if not found
+	 */	
+	public static int getIndexOfPhoneNumber(String phoneNumber) {
+		int result = -1;
+		String str;
+		
+		for (int i=0; i<index; i++) {
+			str = personArr[i].getPhoneNumber();
+			
+			if (phoneNumber.equals(str)) {
 				result = i;
 				break;
 			}
@@ -105,7 +137,22 @@ public class DataBase {
 		result = getAccountUserUsingCredentials(credentials);
 		return result;
 	}
+	
+	/**
+	 * 
+	 * @param phoneNumber
+	 * @return AccountUser object with said phonenumber, NULL If not found
+	 */
+	public static AccountUser getAccountUserUsingPhoneNumber(String phoneNumber) {
+		AccountUser result = null;
+		int index = getIndexOfPhoneNumber(phoneNumber);
 		
+		if (index == -1)
+			return null;
+		
+		result = personArr[index];
+		return result;
+	}
 	
 	/**
 	 * Populates database with some demo users, including bank manager

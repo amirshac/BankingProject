@@ -72,7 +72,7 @@ public class AppEngine {
 			System.out.println("Invalid user credentials, login denied");
 			result = false;
 		}else {
-			System.out.println("Found user!" + user);
+			System.out.println(userName + " logged in!");
 			this.currentUser = user;
 			result = true;
 		}

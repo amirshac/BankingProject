@@ -9,12 +9,16 @@ import Banking.Users.*;
 
 public class Runner {
 
-	public static void main(String[] args) {		
+	
+	public static void testRun1() {
 		DataBase.populateDataBase();
-	//	DataBase.print();
-		
 		AppEngine engine = new AppEngine();
-		//engine.play();
 		engine.login("dory", "dory11");
+	}
+	
+	public static void main(String[] args) {		
+
+		testRun1();
+		//engine.play();
 	}
 }
