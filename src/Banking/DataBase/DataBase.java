@@ -8,6 +8,9 @@ public class DataBase {
 	public static LinkedList<Person> personList = new LinkedList<>();
 	public static LinkedList<Account> accountLIst = new LinkedList<>();
 	
+	/**
+	 * Populates database with some demo users, including bank manager
+	 */
 	public static void populateDataBase() {
 		Person person;
 		AccountUser accountUser;

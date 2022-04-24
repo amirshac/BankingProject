@@ -9,10 +9,11 @@ import Banking.Users.*;
 public class Runner {
 
 	public static void main(String[] args) {
-		//Menu menu = new MenuAccount();
-		//menu.print();
+		Menu menu;
+		menu = new MenuWelcome();
+		menu.play();
 		
-		DataBase.populateDataBase();
-		DataBase.print();
+		//DataBase.populateDataBase();
+		//DataBase.print();
 	}
 }
