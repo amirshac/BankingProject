@@ -82,20 +82,17 @@ public class AppEngine {
 	// TODO: refactor validation name checks to something more elegant
 	// TODO: user lock mechanism after 3 tries
 	public void handleLoginScreen() {
-		final String MSG_INVALID_USERNAME = "Invalid username, must be 4-20 characters long and contain only numbers or letters.";
-		final String MSG_INVALID_PASSWORD = "Invalid password, must be 4-8 characters long and contain a number and a letter.";
-		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist";
-		final String MSG_INVALID_CREDENTIALS = "Invalid credentials";
+		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist\n";
+		final String MSG_INVALID_CREDENTIALS = "Invalid credentials\n";
 		
-		boolean isValidInput = false;
-		String input = null;
-		String usernameInput;
-		String passwordInput;
-		
-		int index = 0;
+		String userName;
+		String password;
 		AccountUser accountUser = null;
 		
-		// username input
+		int index = 0;
+		
+		/*
+		// OLD username input
 		while (!isValidInput) {
 			System.out.print("Enter username: ");
 			input = Input.scanner.nextLine();
@@ -104,19 +101,20 @@ public class AppEngine {
 			isValidInput = Credentials.isValidUsername(input);
 			
 			if (!isValidInput) System.out.println(MSG_INVALID_USERNAME);
-		}
+		}*/
 		
-		// username not found - go back to main menu
-		index = DataBase.getIndexOfUsername(input);
+		userName = Input.getUserNameUntilValid();
+		
+		// if username not found - go back to main menu
+		index = DataBase.getIndexOfUsername(userName);
 		if (index == -1) {
 			System.out.println(MSG_USERNAME_DOESNT_EXIST);
-			handleWelcomeScreen();
+			state = AppState.WELCOME_SCREEN;
 			return;
 		}
-		
-		usernameInput = input;
-		
-		// password bit
+				
+		/*
+		// OLD password bit
 		isValidInput = false;
 		//int attempts = 0;
 		
@@ -129,15 +127,19 @@ public class AppEngine {
 			if (!isValidInput) System.out.println(MSG_INVALID_PASSWORD);
 		}
 		
-		passwordInput = input;
+		password = input;
+		*/
 		
-		accountUser = DataBase.getAccountUserUsingCredentials(usernameInput,passwordInput);
+		password = Input.getPasswordUntilValid();
+		
+		accountUser = DataBase.getAccountUserUsingCredentials(userName,password);
 		
 		if (accountUser == null) {
 			System.out.println(MSG_INVALID_CREDENTIALS);
 			return;
 		}
 		
+		System.out.println();
 		System.out.println(accountUser.getFirstName()+ " logged in!\n");
 		this.currentUser = accountUser;
 		this.state = AppState.LOGGED_IN;
@@ -169,12 +171,6 @@ public class AppEngine {
 	
 	public void createAccount() {
 		final int PHONE_NUMBER_LEN = 10; 
-		
-		final int USERNAME_MIN_LEN = 4;
-		final int USERNAME_MAX_LEN = 20;
-		
-		final int PASSWORD_MIN_LEN = 4;
-		final int PASSWORD_MAX_LEN = 8;
 		
 		final double MONTHLY_INCOME_MIN = 0f;
 	
@@ -209,20 +205,10 @@ public class AppEngine {
 			return;
 		}
 		
-		// username input
-		Input.clear();
-		Input.setMessageEnterInput("Enter Username:");
-		Input.setMessageInvalidInput("Invalid username - Must be only letters and numbers, length of 4-20");
-		Input.setFlagCheckLength(true);
-		Input.setMinLength(USERNAME_MIN_LEN);
-		Input.setMaxLength(USERNAME_MAX_LEN);
-		Input.setFlagOnlyNumbers(true);
-		Input.setFlagOnlyLetters(true);
-		
+		// user name input
 		do {
-			userName = Input.getInputUntilValid();
-			userName = userName.toLowerCase();
-		
+			userName = Input.getUserNameUntilValid();
+			
 			doesUserNameExist = DataBase.doesUsernameExist(userName);
 			
 			if (doesUserNameExist) System.out.println("UserName Already exists in DataBase, try again.\n");
@@ -230,15 +216,7 @@ public class AppEngine {
 		}while (doesUserNameExist);
 		
 		// password input
-		Input.clear();
-		Input.setMessageEnterInput("Enter Password:");
-		Input.setMessageInvalidInput("Invalid password - Must have a letter and a number, length of 4-8");
-		Input.setFlagCheckLength(true);
-		Input.setMinLength(PASSWORD_MIN_LEN);
-		Input.setMaxLength(PASSWORD_MAX_LEN);
-		Input.setFlagMustContainLetter(true);
-		Input.setFlagMustContainNumber(true);
-		password = Input.getInputUntilValid();
+		password = Input.getPasswordUntilValid();
 	
 		// first name input
 		Input.clear();

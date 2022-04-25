@@ -10,13 +10,13 @@ import java.util.Scanner;
  */
 public class Input {
 	public static Scanner scanner = new Scanner(System.in);
-	
+		
 	private static String numberRegex = ".*[0-9].*";
 	private static String charRegex = ".*[a-zA-Z].*";
 	private static String onlyNumbersAndLettersRegex = "[a-zA-Z0-9]*";
 	private static String onlyLettersRegex = "[a-zA-Z]*";
 	private static String onlyNumbersRegex = "[0-9]*";
-	
+		
 	public static String inputString;
 	
 	protected static int validityMinLength = 0;
@@ -203,6 +203,42 @@ public class Input {
 		return str;
 	}
 	
+	// special input case for username
+	public static String getUserNameUntilValid() {
+		final int USERNAME_MIN_LEN = 4;
+		final int USERNAME_MAX_LEN = 20;
+		
+		String userName;
+		clear();
+		setMessageEnterInput("Enter Username:");
+		setMessageInvalidInput("Invalid username - Must be only letters and numbers, length of 4-20");
+		setFlagCheckLength(true);
+		setMinLength(USERNAME_MIN_LEN);
+		setMaxLength(USERNAME_MAX_LEN);
+		setFlagOnlyNumbers(true);
+		setFlagOnlyLetters(true);
+		userName = getInputUntilValid();
+		userName = userName.toLowerCase();
+		return userName;
+	}
+	
+	// special input case for password
+	public static String getPasswordUntilValid() {
+		final int PASSWORD_MIN_LEN = 4;
+		final int PASSWORD_MAX_LEN = 8;
+		
+		String password;
+		clear();
+		setMessageEnterInput("Enter Password:");
+		setMessageInvalidInput("Invalid password - Must have a letter and a number, length of 4-8");
+		setFlagCheckLength(true);
+		setMinLength(PASSWORD_MIN_LEN);
+		setMaxLength(PASSWORD_MAX_LEN);
+		setFlagMustContainLetter(true);
+		setFlagMustContainNumber(true);
+		password = getInputUntilValid();
+		return password;
+	}
 	/**
 	 * Asks for numerical inputs to construct a localdate object
 	 * @return
