@@ -1,5 +1,10 @@
 package Banking.AppEngine;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import Banking.Account.Account;
+import Banking.Account.AccountProperties;
 import Banking.DataBase.DataBase;
 import Banking.Menu.*;
 import Banking.Users.*;
@@ -64,6 +69,10 @@ public class AppEngine {
 			quit();
 			break;
 			
+		case "P":
+			DataBase.print();
+			break;
+				
 		default:
 			handleWelcomeScreen();
 			break;
@@ -160,20 +169,108 @@ public class AppEngine {
 	
 	public void createAccount() {
 		final int PHONE_NUMBER_LEN = 10; 
-		boolean isValidInput = false;
+		
+		final int USERNAME_MIN_LEN = 4;
+		final int USERNAME_MAX_LEN = 20;
+		
+		final int PASSWORD_MIN_LEN = 4;
+		final int PASSWORD_MAX_LEN = 8;
+		
+		final double MONTHLY_INCOME_MIN = 0f;
+	
+		boolean doesPhoneNumberExist = false;
+		boolean doesUserNameExist = false;
+		
 		String phoneNumber;
+		String firstName;
+		String lastName;
+		LocalDate birthDate;
+		String userName;
+		String password;
+		double monthlyIncome;
 		
 		System.out.println("Create new account:");
 		System.out.println("===================");
 	
-		Input.clearAllFlags();
+		// phone number input
+		Input.clear();
 		Input.setMessageEnterInput("Enter phone Number:");
-		Input.setMessageInvalidInput("Invalid input - phone number must be all digits and 10 length");
+		Input.setMessageInvalidInput("Invalid input - Phone Number must be 10 digits");
 		Input.setFlagCheckLength(true);
 		Input.setMinLength(PHONE_NUMBER_LEN);
 		Input.setMaxLength(PHONE_NUMBER_LEN);
 		Input.setFlagOnlyNumbers(true);
-		phoneNumber = Input.getInputUntilValid();	
+		
+		phoneNumber = Input.getInputUntilValid();
+		doesPhoneNumberExist = DataBase.doesPhoneNumberExist(phoneNumber);
+			
+		if (doesPhoneNumberExist) {
+			System.out.println("Phone number already exists in DataBase. Try logging in, aborting.\n");
+			return;
+		}
+		
+		// username input
+		Input.clear();
+		Input.setMessageEnterInput("Enter Username:");
+		Input.setMessageInvalidInput("Invalid username - Must be only letters and numbers, length of 4-20");
+		Input.setFlagCheckLength(true);
+		Input.setMinLength(USERNAME_MIN_LEN);
+		Input.setMaxLength(USERNAME_MAX_LEN);
+		Input.setFlagOnlyNumbers(true);
+		Input.setFlagOnlyLetters(true);
+		
+		do {
+			userName = Input.getInputUntilValid();
+			userName = userName.toLowerCase();
+		
+			doesUserNameExist = DataBase.doesUsernameExist(userName);
+			
+			if (doesUserNameExist) System.out.println("UserName Already exists in DataBase, try again.\n");
+			
+		}while (doesUserNameExist);
+		
+		// password input
+		Input.clear();
+		Input.setMessageEnterInput("Enter Password:");
+		Input.setMessageInvalidInput("Invalid password - Must have a letter and a number, length of 4-8");
+		Input.setFlagCheckLength(true);
+		Input.setMinLength(PASSWORD_MIN_LEN);
+		Input.setMaxLength(PASSWORD_MAX_LEN);
+		Input.setFlagMustContainLetter(true);
+		Input.setFlagMustContainNumber(true);
+		password = Input.getInputUntilValid();
+	
+		// first name input
+		Input.clear();
+		Input.setMessageEnterInput("Enter first name:");
+		Input.setMessageInvalidInput("Invalid input - Name must be letters only");
+		Input.setFlagOnlyLetters(true);
+		firstName = Input.getInputUntilValid();
+		
+		// last name input
+		Input.setMessageEnterInput("Enter last name:");
+		lastName = Input.getInputUntilValid();
+		
+		// birthdate input
+		System.out.println("Enter birthdate:");
+		birthDate = Input.getDate();
+		
+		// monthly income input
+		Input.clear();
+		Input.setMessageEnterInput("Enter Monthly Income:");
+		Input.setMessageInvalidInput("Monthly income needs to be atleast 0");
+		monthlyIncome = Input.GetDoubleUntilValidMin(MONTHLY_INCOME_MIN);
+		
+		// Create account from variables and add to database
+		
+		Person person = new Person(firstName, lastName, phoneNumber, birthDate);
+		Account account = new Account(0, AccountProperties.BRONZE);
+		Credentials credentials = new Credentials(userName, password);
+		AccountUser accountUser = new AccountUser(person, monthlyIncome, account, credentials);
+		DataBase.addPersonToDB(accountUser);
+		
+		System.out.println("Account succesfully created. Approval is pending by the bank manager");
+		System.out.println();
 	}
 	
 	public void handleAccountMenu() {
@@ -184,7 +281,7 @@ public class AppEngine {
 		case "L":
 			handleLoginScreen();
 			break;
-			
+		
 		case "Q":
 			logOut();
 			break;

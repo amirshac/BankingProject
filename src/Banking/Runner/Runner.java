@@ -29,8 +29,6 @@ public class Runner {
 	
 	public static void main(String[] args) {		
 		DataBase.populateDataBase();
-
-		//testAccountBalance();
 		engine.play();
 		
 		Input.scanner.close();

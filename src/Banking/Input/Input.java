@@ -1,5 +1,6 @@
 package Banking.Input;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -44,6 +45,11 @@ public class Input {
 		messageInvalidInput = null;
 	}
 	
+	public static void clear() {
+		clearAllFlags();
+		clearMessages();
+	}
+	
 	// setters 
 	public static void setMaxLength(int len) {
 		validityMaxLength = len;
@@ -67,6 +73,18 @@ public class Input {
 	
 	public static void setFlagOnlyNumbers(boolean set) {
 		validityMustContainOnlyNumbers = set;
+	}
+	
+	public static void setFlagOnlyLetters(boolean set) {
+		validityMustContainOnlyLetters = set;
+	}
+	
+	public static void setFlagMustContainNumber(boolean set) {
+		validityMustContainNumber = set;
+	}
+	
+	public static void setFlagMustContainLetter(boolean set) {
+		validityMustContainLetter = set;
 	}
 	
 	// validity checks
@@ -132,6 +150,10 @@ public class Input {
 		return newString;
 	}
 	
+	/**
+	 * Keep getting input over and over again until input is valid according to class flags
+	 * @return String
+	 */
 	public static String getInputUntilValid() {
 		String str = null;
 		boolean isValid = false;
@@ -147,13 +169,33 @@ public class Input {
 			
 			str = scanner.nextLine();
 			
+			// length check
 			if (validityCheckLength) {
 				isValid = isValidInputLength(str);
 				if (!isValid) continue;
 			}
 			
-			if (validityMustContainOnlyNumbers) {
+			// must contain numbers and must contain letters
+			if (validityMustContainOnlyNumbers && validityMustContainOnlyLetters) {
+				isValid = isValidInputMustContainOnlyNumbersAndLetters(str);
+				if (!isValid) continue;
+			}
+			
+			// must contain numbers but not letters
+			if (validityMustContainOnlyNumbers && !validityMustContainOnlyLetters) {
 				isValid = isValidInputMustContainOnlyNumbers(str);
+				if (!isValid) continue;
+			}
+			
+			// must contain letters but not numbers
+			if (validityMustContainOnlyLetters && !validityMustContainOnlyNumbers) {
+				isValid = isValidInputMustContainOnlyLetters(str);
+				if (!isValid) continue;
+			}
+			
+			// must contain atleast a number and atleast a letter
+			if (validityMustContainNumber && validityMustContainLetter) {
+				isValid =isValidInputMustContainNumberAndLetter(str);
 				if (!isValid) continue;
 			}
 		}
@@ -161,6 +203,53 @@ public class Input {
 		return str;
 	}
 	
+	/**
+	 * Asks for numerical inputs to construct a localdate object
+	 * @return
+	 */
+	public static LocalDate getDate() {
+		LocalDate date = null;
+		int day, month, year;
+		String str;
+		
+		System.out.println("Input date - day:");
+		str = scanner.nextLine();
+		day = Integer.parseInt(str);
+		
+		System.out.println("Input date - month:");
+		str = scanner.nextLine();
+		month = Integer.parseInt(str);
+
+		System.out.println("Input date - year:");
+		str = scanner.nextLine();
+		year = Integer.parseInt(str);
+
+		date = LocalDate.of(year, month, day);
+		
+		return date;
+	}
+	
+	/**
+	 * Keeps getting input until number >= min 
+	 * @param min - minimum value of number
+	 * @return double variable >= min
+	 */
+	public static double GetDoubleUntilValidMin(double min) {
+		String str;
+		boolean isValid = false;
+		double number = 0.0;
+		
+		if (messageEnterInput!= null) System.out.println(messageEnterInput);
+		
+		while (!isValid) {
+			str = scanner.nextLine();
+			number = Double.parseDouble(str);
+			if (number < min) System.out.println(messageInvalidInput);
+			else isValid = true;
+		}
+		
+		return number;
+	}
 	
 	/**
 	 * Gets input until valid, using class validity flags

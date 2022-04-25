@@ -6,5 +6,6 @@ public class MenuWelcome extends Menu{
 		addOption("Log in", "L");
 		addOption("Create a new account", "C");
 		addOption("Quit", "Q");
+		addOption("Print DataBase<DEBUG>", "P");
 	}
 }

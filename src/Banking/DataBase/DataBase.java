@@ -16,7 +16,7 @@ public class DataBase {
 	 * Adds user to database
 	 * @param user
 	 */
-	private static void addPersonToDB(AccountUser user) {
+	public static void addPersonToDB(AccountUser user) {
 		if (index >= DB_SIZE) {
 			System.out.println("ERROR DataBase Limit reached can't insert");
 			return;
