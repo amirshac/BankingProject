@@ -9,10 +9,9 @@ import Banking.Users.*;
 
 public class Runner {
 
+	public static AppEngine engine = new AppEngine();
 	
-	public static void testRun1() {
-		DataBase.populateDataBase();
-		AppEngine engine = new AppEngine();
+	public static void testLoginWithFunction() {
 		
 		engine.login("dory", "dory11");
 		AccountUser user;
@@ -20,9 +19,15 @@ public class Runner {
 		user.printAccountActivityLog();
 	}
 	
+	public static void testLoginScreen() {
+		engine.handleLoginScreen();
+	}
+	
+	
 	public static void main(String[] args) {		
-
-		testRun1();
+		DataBase.populateDataBase();
+		
+		testLoginScreen();
 		//engine.play();
 	}
 }

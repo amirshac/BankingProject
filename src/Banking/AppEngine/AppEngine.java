@@ -59,9 +59,34 @@ public class AppEngine {
 		}
 	}
 	
-	private void handleLoginScreen() {
+	// TODO: refactor validation name checks to something more elegant
+	public void handleLoginScreen() {
+		boolean keepGoing = true;
+		boolean isValidInput = false;
+		String input = null;
+		final String MSG_INVALID_USERNAME = "Invalid username, must be 4-20 characters long and contain only numbers or letters.";
+		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist";
 		
+		int index = 0;
+		
+		// username input
+		while (!isValidInput) {
+			System.out.print("Enter username: ");
+			input = Menu.scanner.nextLine();
+			input = input.toLowerCase();
+			
+			isValidInput = Credentials.isValidUsername(input);
+			
+			if (!isValidInput) System.out.println(MSG_INVALID_USERNAME);
+		}
+		
+		index = DataBase.getIndexOfUsername(input);
+		if (index == -1) {
+			System.out.println(MSG_USERNAME_DOESNT_EXIST);
+			return;
+		}
 	}
+	
 	
 	public boolean login(String userName, String password) {
 		boolean result = false;
