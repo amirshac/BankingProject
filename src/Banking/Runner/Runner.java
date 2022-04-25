@@ -13,7 +13,11 @@ public class Runner {
 	public static void testRun1() {
 		DataBase.populateDataBase();
 		AppEngine engine = new AppEngine();
+		
 		engine.login("dory", "dory11");
+		AccountUser user;
+		user = DataBase.getAccountUserUsingCredentials("dory", "dory11");
+		user.printAccountActivityLog();
 	}
 	
 	public static void main(String[] args) {		

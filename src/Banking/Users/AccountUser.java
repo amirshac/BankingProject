@@ -109,4 +109,8 @@ public class AccountUser extends Person {
 		return msg;
 	}
 	
+	// METHODS
+	public void printAccountActivityLog() {
+		this.account.printActivityLog();
+	}
 }

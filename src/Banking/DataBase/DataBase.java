@@ -1,8 +1,8 @@
 package Banking.DataBase;
 import java.time.LocalDate;
-import java.util.LinkedList;
 import Banking.Users.*;
 import Banking.Account.*;
+import Banking.ActivityLog.ActivityLog;
 
 public class DataBase {
 	
@@ -158,6 +158,11 @@ public class DataBase {
 	 * Populates database with some demo users, including bank manager
 	 */
 	public static void populateDataBase() {
+		populateUsersDB();
+		populateAccountActivitiesDB();
+	}
+	
+	private static void populateUsersDB() {
 		Person person;
 		AccountUser accountUser;
 		BankManagerUser bankManager;
@@ -177,7 +182,6 @@ public class DataBase {
 		bankManager.setCredentials(credentials);
 		
 		addPersonToDB(bankManager);
-	
 		
 		income = 3000;
 		balance = 500;
@@ -211,6 +215,15 @@ public class DataBase {
 		accountUser = new AccountUser(person, income, account);
 		accountUser.setCredentials("dory", "dory11");
 		addPersonToDB(accountUser);
+	}
+	
+	private static void populateAccountActivitiesDB() {
+		// TODO populate account acitivies in database
+		AccountUser accountUser = personArr[4];
+		
+		ActivityLog activityLog = new ActivityLog();
+		accountUser.getAccount().addActivityLog(activityLog);
+	
 	}
 	
 	public static void print() {
