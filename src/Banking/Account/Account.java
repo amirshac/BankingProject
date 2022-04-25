@@ -1,11 +1,20 @@
 package Banking.Account;
 
+import Banking.ActivityLog.ActivityLog;
+
 public class Account {
 	private static final double DEFAULT_BALANCE = 0f;
 	private static final AccountProperties DEFAULT_ACCOUNT_PROPERTIES = AccountProperties.BRONZE;
+	private static final int ACTIVITY_LOG_SIZE = 100;
+	
+	//TODO set account properties according to accountproperties ENUM
 	
 	protected double balance;
 	protected AccountProperties accountProperties;
+	
+	protected ActivityLog[] activityLogs;
+	private int activityLogIndex;
+
 	
 	// constructors 
 	public Account() {
@@ -20,6 +29,8 @@ public class Account {
 		super();
 		this.balance = balance;
 		this.accountProperties = accountProperties;
+		activityLogs = new ActivityLog[ACTIVITY_LOG_SIZE];
+		activityLogIndex = 0;
 	}
 
 	// setters getters
@@ -39,11 +50,27 @@ public class Account {
 	public void setAccountProperties(AccountProperties accountProperties) {
 		this.accountProperties = accountProperties;
 	}
-	
+
 
 	@Override
 	public String toString() {
 		return "<Account>[balance=" + balance + ", accountProperties=" + accountProperties + "]</Account>";
+	}
+	
+	// METHODS
+	/**
+	 * Adds activitylog to activity history array
+	 * @param activityLog
+	 */
+	public void addActivityLog(ActivityLog activityLog) {
+		
+		if (activityLogIndex >= ACTIVITY_LOG_SIZE) {
+			System.out.println("Activity log full, can't add logs");
+			return;
+		}
+		
+		activityLogs[activityLogIndex] = activityLog;
+		activityLogIndex ++;
 	}
 	
 	
