@@ -113,4 +113,22 @@ public class AccountUser extends Person {
 	public void printAccountActivityLog() {
 		this.account.printActivityLog();
 	}
+	
+	/**
+	 * displays account balance
+	 */
+	public void checkBalance() {
+		double balance = this.account.getBalance();
+		System.out.println("Account balance: " + balance);
+	}
+	
+	/**
+	 * Makes a deposit
+	 */
+	public void Deposit() {
+		System.out.println("Deposit:");
+		// TODO: implement 4 digit code for deposit
+		System.out.println("Enter amount to deposit:> ");
+		
+	}
 }

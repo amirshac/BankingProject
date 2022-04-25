@@ -1,10 +1,8 @@
 package Banking.Runner;
-import java.time.LocalDate;
 
-import Banking.Account.*;
+import Banking.InputScanner.*;
 import Banking.AppEngine.AppEngine;
 import Banking.DataBase.DataBase;
-import Banking.Menu.*;
 import Banking.Users.*;
 
 public class Runner {
@@ -23,11 +21,19 @@ public class Runner {
 		engine.handleLoginScreen();
 	}
 	
+	public static void testAccountBalance() {
+		AccountUser user;
+		user = DataBase.getAccountUserUsingCredentials("dory", "dory11");
+		user.checkBalance();		
+	}
 	
 	public static void main(String[] args) {		
 		DataBase.populateDataBase();
-		
-		//testLoginScreen();
+
+		//testAccountBalance();
 		engine.play();
+		
+		InputScanner.scanner.close();
+		
 	}
 }

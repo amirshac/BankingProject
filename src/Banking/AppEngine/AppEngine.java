@@ -72,7 +72,6 @@ public class AppEngine {
 		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist";
 		final String MSG_INVALID_CREDENTIALS = "Invalid credentials";
 		
-		boolean keepGoing = true;
 		boolean isValidInput = false;
 		String input = null;
 		String usernameInput;
@@ -104,7 +103,7 @@ public class AppEngine {
 		
 		// password bit
 		isValidInput = false;
-		int attempts = 0;
+		//int attempts = 0;
 		
 		while (!isValidInput) {
 			System.out.print("Enter Password: ");
@@ -182,6 +181,8 @@ public class AppEngine {
 	private void logOut() {
 		if (currentUser == null)
 			System.out.println("logout() No user to log out");
+		
+		System.out.println("Logging out...\n");
 		
 		currentUser = null;
 		
