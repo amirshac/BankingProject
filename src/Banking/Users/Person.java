@@ -2,6 +2,8 @@ package Banking.Users;
 
 import java.time.LocalDate;
 
+//TODO make person abstract
+
 public class Person {
 	protected String firstName;
 	protected String lastName;

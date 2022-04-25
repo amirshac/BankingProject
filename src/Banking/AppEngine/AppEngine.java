@@ -6,6 +6,7 @@ import Banking.Users.*;
 
 public class AppEngine {
 	protected AppState state;
+//	protected AccountUser[] userArr;
 	protected AccountUser currentUser;
 	protected Menu currentMenu;
 	protected Menu welcomeMenu;
@@ -79,6 +80,7 @@ public class AppEngine {
 		
 		return result;
 	}
+	
 	
 	private void quit() {
 		System.out.println("Quitting, goodbye!");
