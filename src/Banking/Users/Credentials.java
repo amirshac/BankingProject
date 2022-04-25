@@ -1,4 +1,7 @@
 package Banking.Users;
+
+import Banking.Input.Input;
+
 // need to implement validity checks
 public class Credentials {
 	private String userName;
@@ -37,13 +40,20 @@ public class Credentials {
 	
 	/**
 	 * Checks if a string meets the password requirements
-	 * 4-8 characters must contain a digit and a letter
+	 * 4-8 characters must contain a number and a letter
 	 * @param userName
 	 * @return true/false
 	 */
 	public static boolean isValidPassword(String str) {
 		final int MIN_LENGTH = 4;
 		final int MAX_LENGTH = 8;
+		
+		boolean result = Input.isValidInputMustContainNumberAndLetter(str, MIN_LENGTH, MAX_LENGTH);
+		
+		return result;
+		
+		/*
+		 * 
 		String numberRegex = ".*[0-9].*";
 		String charRegex = ".*[a-z].*";
 				
@@ -60,17 +70,24 @@ public class Credentials {
 			return false;
 		
 		return true;
+		
+		*/
 	}
 	
 	/**
 	 * Checks if a string meets the username requirements
-	 * 4-20 characters must contain ONLY digits and numbers
+	 * 4-20 characters must contain ONLY numbers and letters
 	 * @param userName
 	 * @return true/false
 	 */
 	public static boolean isValidUsername(String str) {
 		final int MIN_LENGTH = 4;
 		final int MAX_LENGTH = 20;
+		
+		boolean result = Input.isValidInputMustContainOnlyNumbersAndLetters(str, MIN_LENGTH, MAX_LENGTH);
+		
+		return result;
+		/*
 		String onlyNumbersAndLettersRegex = "[a-zA-Z0-9]*";
 				
 		// required length
@@ -82,6 +99,7 @@ public class Credentials {
 			return false;			
 		
 		return true;
+		*/
 	}
 	
 }

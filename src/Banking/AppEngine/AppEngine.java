@@ -55,6 +55,11 @@ public class AppEngine {
 		case "L":
 			handleLoginScreen();
 			break;
+			
+		case "C":
+			createAccount();
+			break;
+			
 		case "Q":
 			quit();
 			break;
@@ -153,6 +158,23 @@ public class AppEngine {
 		return result;
 	}
 	
+	public void createAccount() {
+		final int PHONE_NUMBER_LEN = 10; 
+		boolean isValidInput = false;
+		String phoneNumber;
+		
+		System.out.println("Create new account:");
+		System.out.println("===================");
+	
+		Input.clearAllFlags();
+		Input.setMessageEnterInput("Enter phone Number:");
+		Input.setMessageInvalidInput("Invalid input - phone number must be all digits and 10 length");
+		Input.setFlagCheckLength(true);
+		Input.setMinLength(PHONE_NUMBER_LEN);
+		Input.setMaxLength(PHONE_NUMBER_LEN);
+		Input.setFlagOnlyNumbers(true);
+		phoneNumber = Input.getInputUntilValid();	
+	}
 	
 	public void handleAccountMenu() {
 		currentMenu = accountMenu;
