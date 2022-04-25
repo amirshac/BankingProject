@@ -73,5 +73,16 @@ public class Account {
 		activityLogIndex ++;
 	}
 	
+
+	public void printActivityLog() {
+		if (activityLogIndex <= 0) {
+			System.out.println("No activity log found");
+			return;
+		}
+		
+		System.out.println(activityLogIndex + " activities in log:");
+		for (int i=0; i<activityLogIndex; i++)
+			System.out.println(activityLogs[i]);
+	}
 	
 }
