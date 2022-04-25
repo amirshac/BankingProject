@@ -10,6 +10,7 @@ public class AccountUser extends Person {
 	protected double monthlyIncome;
 	protected Account account;
 	protected Credentials credentials;
+	protected boolean isLocked = false;
 	
 	// constructors 
 	public AccountUser(String firstName, String lastName, String phoneNumber, LocalDate birthDate,
@@ -100,6 +101,10 @@ public class AccountUser extends Person {
 		return this.credentials.getPassword();
 	}
 	
+	public boolean isLocked() {
+		return this.isLocked;
+	}
+	
 	@Override
 	public String toString() {
 		String msg = super.toString();
@@ -142,5 +147,13 @@ public class AccountUser extends Person {
 		account.addToBalance(deposit);
 		
 		checkBalance();
+	}
+	
+	public void lockAccount() {
+		this.isLocked = true;
+	}
+	
+	public void unlockAccount() {
+		this.isLocked = false;
 	}
 }

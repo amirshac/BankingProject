@@ -78,30 +78,21 @@ public class AppEngine {
 		}
 	}
 	
-	// TODO: refactor validation name checks to something more elegant
 	// TODO: user lock mechanism after 3 tries
 	public void handleLoginScreen() {
 		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist\n";
-		final String MSG_INVALID_CREDENTIALS = "Invalid credentials\n";
+		final String MSG_INVALID_CREDENTIALS = "Invalid credentials. Try again\n";
+		final int LOCKOUT_TRIES = 3;
 		
 		String userName;
 		String password;
 		AccountUser accountUser = null;
 		
 		int index = 0;
+		int tries = 0;
 		
-		/*
-		// OLD username input
-		while (!isValidInput) {
-			System.out.print("Enter username: ");
-			input = Input.scanner.nextLine();
-			input = input.toLowerCase();
-			
-			isValidInput = Credentials.isValidUsername(input);
-			
-			if (!isValidInput) System.out.println(MSG_INVALID_USERNAME);
-		}*/
-		
+		System.out.println("Login:");
+	
 		userName = Input.getUserNameUntilValid();
 		
 		// if username not found - go back to main menu
@@ -110,34 +101,32 @@ public class AppEngine {
 			System.out.println(MSG_USERNAME_DOESNT_EXIST);
 			state = AppState.WELCOME_SCREEN;
 			return;
-		}
-				
-		/*
-		// OLD password bit
-		isValidInput = false;
-		//int attempts = 0;
+		}			
 		
-		while (!isValidInput) {
-			System.out.print("Enter Password: ");
-			input = Input.scanner.nextLine();
-			
-			isValidInput = Credentials.isValidPassword(input);
-			
-			if (!isValidInput) System.out.println(MSG_INVALID_PASSWORD);
-		}
-		
-		password = input;
-		*/
-		
-		password = Input.getPasswordUntilValid();
-		
-		accountUser = DataBase.getAccountUserUsingCredentials(userName,password);
-		
-		if (accountUser == null) {
-			System.out.println(MSG_INVALID_CREDENTIALS);
+		if (DataBase.personArr[index].isLocked()) {
+			System.out.println("Account is locked");
+			state = AppState.WELCOME_SCREEN;
 			return;
 		}
 		
+		while (tries < LOCKOUT_TRIES){
+			password = Input.getPasswordUntilValid();
+		
+			accountUser = DataBase.getAccountUserUsingCredentials(userName,password);
+		
+			if (accountUser == null) {
+				tries ++;
+				System.out.println(MSG_INVALID_CREDENTIALS);
+				System.out.println("Tries remaining until lockout: " + (LOCKOUT_TRIES-tries));
+			}
+		}
+		
+		if (tries >= LOCKOUT_TRIES && accountUser == null) {
+			System.out.println("Account locked");
+			DataBase.personArr[index].lockAccount();
+			return;
+		}
+				
 		System.out.println();
 		System.out.println(accountUser.getFirstName()+ " logged in!\n");
 		this.currentUser = accountUser;
@@ -166,6 +155,8 @@ public class AppEngine {
 			result = true;
 		}
 		
+		this.state = AppState.LOGGED_IN;
+
 		return result;
 	}
 	
