@@ -57,6 +57,7 @@ public abstract class Menu {
 	
 	/**
 	 * Displays menu and asks for input until input is valid
+	 * String case insensitive
 	 */
 	public void play() {
 		String inputStr = null;
@@ -67,6 +68,7 @@ public abstract class Menu {
 			this.print();
 
 			inputStr = scanner.nextLine();
+			inputStr = inputStr.toUpperCase();
 			
 			if (!isValidChoice(inputStr))
 				System.out.println(DEFAULT_ERROR_MSG);	
