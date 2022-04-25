@@ -3,6 +3,7 @@ package Banking.AppEngine;
 import Banking.DataBase.DataBase;
 import Banking.Menu.*;
 import Banking.Users.*;
+import Banking.Input.*;
 
 public class AppEngine {
 	protected AppState state;
@@ -83,7 +84,7 @@ public class AppEngine {
 		// username input
 		while (!isValidInput) {
 			System.out.print("Enter username: ");
-			input = Menu.scanner.nextLine();
+			input = Input.scanner.nextLine();
 			input = input.toLowerCase();
 			
 			isValidInput = Credentials.isValidUsername(input);
@@ -107,7 +108,7 @@ public class AppEngine {
 		
 		while (!isValidInput) {
 			System.out.print("Enter Password: ");
-			input = Menu.scanner.nextLine();
+			input = Input.scanner.nextLine();
 			
 			isValidInput = Credentials.isValidPassword(input);
 			
@@ -161,7 +162,7 @@ public class AppEngine {
 		case "L":
 			handleLoginScreen();
 			break;
-			// logout
+			
 		case "Q":
 			logOut();
 			break;
@@ -174,7 +175,7 @@ public class AppEngine {
 	
 	private void quit() {
 		System.out.println("Quitting, goodbye!");
-		Menu.scanner.close();
+		Input.scanner.close();
 		this.keepGoing = false;
 	}
 	

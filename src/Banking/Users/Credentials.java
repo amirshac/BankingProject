@@ -72,9 +72,7 @@ public class Credentials {
 		final int MIN_LENGTH = 4;
 		final int MAX_LENGTH = 20;
 		String onlyNumbersAndLettersRegex = "[a-zA-Z0-9]*";
-		
-		str = str.toLowerCase();
-		
+				
 		// required length
 		if ( (str.length()<MIN_LENGTH) || (str.length()>MAX_LENGTH) )
 			return false;

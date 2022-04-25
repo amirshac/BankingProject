@@ -1,8 +1,8 @@
 package Banking.Runner;
 
-import Banking.InputScanner.*;
 import Banking.AppEngine.AppEngine;
 import Banking.DataBase.DataBase;
+import Banking.Input.*;
 import Banking.Users.*;
 
 public class Runner {
@@ -33,7 +33,7 @@ public class Runner {
 		//testAccountBalance();
 		engine.play();
 		
-		InputScanner.scanner.close();
+		Input.scanner.close();
 		
 	}
 }
