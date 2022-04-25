@@ -33,6 +33,10 @@ public class AppEngine {
 	}
 	
 	public void play() {
+		
+		// auto log in for tests:
+		login("amir", "amir11");
+		
 		while (keepGoing){
 			executeState();
 		}
@@ -123,6 +127,7 @@ public class AppEngine {
 		
 		if (tries >= LOCKOUT_TRIES && accountUser == null) {
 			System.out.println("Account locked");
+			// TODO: set time for lockout
 			DataBase.personArr[index].lockAccount();
 			return;
 		}
@@ -228,7 +233,7 @@ public class AppEngine {
 		Input.clear();
 		Input.setMessageEnterInput("Enter Monthly Income:");
 		Input.setMessageInvalidInput("Monthly income needs to be atleast 0");
-		monthlyIncome = Input.GetDoubleUntilValidMin(MONTHLY_INCOME_MIN);
+		monthlyIncome = Input.getDoubleUntilValidMin(MONTHLY_INCOME_MIN);
 		
 		// Create account from variables and add to database
 		
@@ -253,6 +258,10 @@ public class AppEngine {
 			
 		case "D":
 			currentUser.makeDeposit();
+			break;
+			
+		case "W":
+			currentUser.withdraw();
 			break;
 			
 		case "Q":
@@ -284,5 +293,4 @@ public class AppEngine {
 		state = AppState.WELCOME_SCREEN;
 	}
 			
-	
 }

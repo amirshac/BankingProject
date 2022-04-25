@@ -67,6 +67,7 @@ public class AccountUser extends Person {
 		this.monthlyIncome = monthlyIncome;
 	}
 
+	
 	public Account getAccount() {
 		return account;
 	}
@@ -143,8 +144,8 @@ public class AccountUser extends Person {
 		Input.setMessageEnterInput("Enter deposit amount:");
 		Input.setMessageInvalidInput("Amount must be alteast 0");
 		
-		deposit = Input.GetDoubleUntilValidMin(MIN_DEPOSIT);
-		account.addToBalance(deposit);
+		deposit = Input.getDoubleUntilValidMin(MIN_DEPOSIT);
+		account.deposit(deposit);
 		
 		checkBalance();
 	}
@@ -155,5 +156,23 @@ public class AccountUser extends Person {
 	
 	public void unlockAccount() {
 		this.isLocked = false;
+	}
+	
+	/**
+	 * withdraw money
+	 */
+	public void withdraw() {
+		double maxWithdrawal = account.getAccountProperties().GetMaxWithdrawalDaily();
+		double amount = 0;
+		
+		// TODO: current daily withdrawal should be addressed and counted
+		Input.clear();
+		Input.setMessageEnterInput("Enter withdrawal amount:");
+		Input.setMessageInvalidInput("Can't withdraw more than your daily amount: " + maxWithdrawal);
+		
+		amount = Input.getDoubleUntilValid(0, maxWithdrawal);
+		
+		account.withdraw(amount);
+		checkBalance();
 	}
 }

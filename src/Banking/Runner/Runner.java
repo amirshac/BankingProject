@@ -31,7 +31,7 @@ public class Runner {
 		DataBase.populateDataBase();
 		engine.play();
 		
-		Input.scanner.close();
 		
+		Input.scanner.close();		
 	}
 }

@@ -270,17 +270,30 @@ public class Input {
 	 * @param min - minimum value of number
 	 * @return double variable >= min
 	 */
-	public static double GetDoubleUntilValidMin(double min) {
+	public static double getDoubleUntilValidMin(double min) {
+		return getDoubleUntilValid(min, Double.MAX_VALUE);
+	}
+	
+	public static double getDoubleUntilValidMax(double max) {
+		return getDoubleUntilValid(Double.MIN_VALUE, max);
+	}
+	
+	public static double getDoubleUntilValid(double min, double max) {
 		String str;
 		boolean isValid = false;
 		double number = 0.0;
 		
-		if (messageEnterInput!= null) System.out.println(messageEnterInput);
-		
 		while (!isValid) {
+			if (messageEnterInput!= null) System.out.println(messageEnterInput);
 			str = scanner.nextLine();
-			number = Double.parseDouble(str);
-			if (number < min) System.out.println(messageInvalidInput);
+			try {
+				number = Double.parseDouble(str);
+			}
+			catch (Exception e) {
+				continue;
+			}
+			
+			if ((number < min) || (number > max)) System.out.println(messageInvalidInput);
 			else isValid = true;
 		}
 		

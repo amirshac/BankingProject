@@ -28,7 +28,7 @@ public class Account {
 	public Account(double balance, AccountProperties accountProperties) {
 		super();
 		this.balance = balance;
-		this.accountProperties = accountProperties;
+		setAccountProperties(accountProperties);
 		activityLogs = new ActivityLog[ACTIVITY_LOG_SIZE];
 		activityLogIndex = 0;
 	}
@@ -43,15 +43,14 @@ public class Account {
 		this.balance = balance;
 	}
 
-	public AccountProperties getAccountProperties() {
-		return accountProperties;
-	}
-
 	public void setAccountProperties(AccountProperties accountProperties) {
 		this.accountProperties = accountProperties;
 	}
 
-
+	public AccountProperties getAccountProperties() {
+		return accountProperties;
+	}
+	
 	@Override
 	public String toString() {
 		return "<Account>[balance=" + balance + ", accountProperties=" + accountProperties + "]</Account>";
@@ -59,8 +58,12 @@ public class Account {
 	
 	// METHODS
 	
-	public void addToBalance(double amount) {
+	public void deposit(double amount) {
 		balance += amount;
+	}
+	
+	public void withdraw(double amount) {
+		balance -= amount;
 	}
 	
 	/**
@@ -78,6 +81,8 @@ public class Account {
 		activityLogIndex ++;
 	}
 	
+	public void addActivityLog(ActivityLog activityLog) {
+	}
 
 	public void printActivityLog() {
 		if (activityLogIndex <= 0) {
