@@ -60,14 +60,21 @@ public class AppEngine {
 	}
 	
 	// TODO: refactor validation name checks to something more elegant
+	// TODO: user lock mechanism after 3 tries
 	public void handleLoginScreen() {
+		final String MSG_INVALID_USERNAME = "Invalid username, must be 4-20 characters long and contain only numbers or letters.";
+		final String MSG_INVALID_PASSWORD = "Invalid password, must be 4-8 characters long and contain a number and a letter.";
+		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist";
+		final String MSG_INVALID_CREDENTIALS = "Invalid credentials";
+		
 		boolean keepGoing = true;
 		boolean isValidInput = false;
 		String input = null;
-		final String MSG_INVALID_USERNAME = "Invalid username, must be 4-20 characters long and contain only numbers or letters.";
-		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist";
+		String usernameInput;
+		String passwordInput;
 		
 		int index = 0;
+		AccountUser accountUser = null;
 		
 		// username input
 		while (!isValidInput) {
@@ -80,11 +87,40 @@ public class AppEngine {
 			if (!isValidInput) System.out.println(MSG_INVALID_USERNAME);
 		}
 		
+		// username not found - go back to main menu
 		index = DataBase.getIndexOfUsername(input);
 		if (index == -1) {
 			System.out.println(MSG_USERNAME_DOESNT_EXIST);
+			handleWelcomeScreen();
 			return;
 		}
+		
+		usernameInput = input;
+		
+		// password bit
+		isValidInput = false;
+		int attempts = 0;
+		
+		while (!isValidInput) {
+			System.out.print("Enter Password: ");
+			input = Menu.scanner.nextLine();
+			
+			isValidInput = Credentials.isValidPassword(input);
+			
+			if (!isValidInput) System.out.println(MSG_INVALID_PASSWORD);
+		}
+		
+		passwordInput = input;
+		
+		accountUser = DataBase.getAccountUserUsingCredentials(usernameInput,passwordInput);
+		
+		if (accountUser == null) {
+			System.out.println(MSG_INVALID_CREDENTIALS);
+			return;
+		}
+		
+		System.out.println(accountUser.getFirstName()+ " logged in!");
+		this.currentUser = accountUser;
 	}
 	
 	

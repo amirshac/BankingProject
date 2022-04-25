@@ -55,9 +55,8 @@ public class Credentials {
 		if (!str.matches(numberRegex))
 			return false;
 		
-		str = str.toLowerCase();
 		// if contains no letters - false
-		if (!str.matches(charRegex))
+		if (!str.toLowerCase().matches(charRegex))
 			return false;
 		
 		return true;
