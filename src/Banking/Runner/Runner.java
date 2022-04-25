@@ -27,7 +27,7 @@ public class Runner {
 	public static void main(String[] args) {		
 		DataBase.populateDataBase();
 		
-		testLoginScreen();
-		//engine.play();
+		//testLoginScreen();
+		engine.play();
 	}
 }

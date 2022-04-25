@@ -1,5 +1,6 @@
 package Banking.AppEngine;
 
 public enum AppState {
-	WELCOME_SCREEN
+	WELCOME_SCREEN,
+	LOGGED_IN
 }

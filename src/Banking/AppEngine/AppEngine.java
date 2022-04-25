@@ -10,6 +10,7 @@ public class AppEngine {
 	protected AccountUser currentUser;
 	protected Menu currentMenu;
 	protected Menu welcomeMenu;
+	protected Menu accountMenu;
 	protected boolean keepGoing;
 	
 	public AppEngine() {
@@ -22,6 +23,7 @@ public class AppEngine {
 	
 	public void initMenus() {
 		welcomeMenu = new MenuWelcome();
+		accountMenu = new MenuAccount();
 	}
 	
 	public void play() {
@@ -34,6 +36,9 @@ public class AppEngine {
 		switch(state) {
 		case WELCOME_SCREEN:
 			handleWelcomeScreen();
+			break;
+		case LOGGED_IN:
+			handleAccountMenu();
 			break;
 		default:
 			handleWelcomeScreen();
@@ -119,11 +124,17 @@ public class AppEngine {
 			return;
 		}
 		
-		System.out.println(accountUser.getFirstName()+ " logged in!");
+		System.out.println(accountUser.getFirstName()+ " logged in!\n");
 		this.currentUser = accountUser;
+		this.state = AppState.LOGGED_IN;
 	}
 	
-	
+	/**
+	 * Get user object with login credentials
+	 * @param userName
+	 * @param password
+	 * @return User object or NULL if wrong credentials
+	 */
 	public boolean login(String userName, String password) {
 		boolean result = false;
 		AccountUser user = null;
@@ -134,7 +145,7 @@ public class AppEngine {
 			System.out.println("Invalid user credentials, login denied");
 			result = false;
 		}else {
-			System.out.println(userName + " logged in!");
+			System.out.println(userName + " logged in!\n");
 			this.currentUser = user;
 			result = true;
 		}
@@ -143,10 +154,39 @@ public class AppEngine {
 	}
 	
 	
+	public void handleAccountMenu() {
+		currentMenu = accountMenu;
+		currentMenu.play();
+		
+		switch(currentMenu.getChoice()) {
+		case "L":
+			handleLoginScreen();
+			break;
+			// logout
+		case "Q":
+			logOut();
+			break;
+			
+		default:
+			handleWelcomeScreen();
+			break;
+		}
+	}
+	
 	private void quit() {
 		System.out.println("Quitting, goodbye!");
 		Menu.scanner.close();
 		this.keepGoing = false;
+	}
+	
+	private void logOut() {
+		if (currentUser == null)
+			System.out.println("logout() No user to log out");
+		
+		currentUser = null;
+		
+		System.out.println(currentUser.getUserName() + " logged out.\n");
+		state = AppState.WELCOME_SCREEN;
 	}
 			
 	
