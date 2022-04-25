@@ -74,7 +74,6 @@ public class AppEngine {
 			break;
 				
 		default:
-			handleWelcomeScreen();
 			break;
 		}
 	}
@@ -142,6 +141,7 @@ public class AppEngine {
 		System.out.println();
 		System.out.println(accountUser.getFirstName()+ " logged in!\n");
 		this.currentUser = accountUser;
+		
 		this.state = AppState.LOGGED_IN;
 	}
 	
@@ -256,23 +256,27 @@ public class AppEngine {
 		currentMenu.play();
 		
 		switch(currentMenu.getChoice()) {
-		case "L":
-			handleLoginScreen();
+		case "B":
+			currentUser.checkBalance();
 			break;
-		
+			
+		case "D":
+			currentUser.makeDeposit();
+			break;
+			
 		case "Q":
 			logOut();
 			break;
 			
 		default:
-			handleWelcomeScreen();
+			state = AppState.LOGGED_IN;
 			break;
 		}
 	}
 	
 	private void quit() {
 		System.out.println("Quitting, goodbye!");
-		Input.scanner.close();
+		this.state = AppState.QUIT;
 		this.keepGoing = false;
 	}
 	
@@ -281,10 +285,11 @@ public class AppEngine {
 			System.out.println("logout() No user to log out");
 		
 		System.out.println("Logging out...\n");
+				
+		System.out.println(currentUser.getUserName() + " logged out.\n");
 		
 		currentUser = null;
 		
-		System.out.println(currentUser.getUserName() + " logged out.\n");
 		state = AppState.WELCOME_SCREEN;
 	}
 			

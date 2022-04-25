@@ -2,6 +2,7 @@ package Banking.Users;
 import java.time.LocalDate;
 
 import Banking.Account.Account;
+import Banking.Input.Input;
 
 public class AccountUser extends Person {
 	private static final double DEFAULT_MONTHLY_INCOME = 0f;
@@ -125,10 +126,21 @@ public class AccountUser extends Person {
 	/**
 	 * Makes a deposit
 	 */
-	public void Deposit() {
-		System.out.println("Deposit:");
-		// TODO: implement 4 digit code for deposit
-		System.out.println("Enter amount to deposit:> ");
+	public void makeDeposit() {
+		final float MIN_DEPOSIT = 0f;
+		double deposit = 0f;
 		
+		System.out.println("Deposit:");
+		
+		// TODO: implement 4 digit code for deposit
+		
+		Input.clear();
+		Input.setMessageEnterInput("Enter deposit amount:");
+		Input.setMessageInvalidInput("Amount must be alteast 0");
+		
+		deposit = Input.GetDoubleUntilValidMin(MIN_DEPOSIT);
+		account.addToBalance(deposit);
+		
+		checkBalance();
 	}
 }

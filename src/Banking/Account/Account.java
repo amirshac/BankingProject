@@ -58,6 +58,11 @@ public class Account {
 	}
 	
 	// METHODS
+	
+	public void addToBalance(double amount) {
+		balance += amount;
+	}
+	
 	/**
 	 * Adds activitylog to activity history array
 	 * @param activityLog
