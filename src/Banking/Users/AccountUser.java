@@ -5,6 +5,7 @@ import Banking.Account.Account;
 import Banking.ActivityLog.ActivityName;
 import Banking.DataBase.DataBase;
 import Banking.Input.Input;
+import Banking.Loan.Loan;
 
 public class AccountUser extends Person {
 	private static final double DEFAULT_MONTHLY_INCOME = 0f;
@@ -180,14 +181,22 @@ public class AccountUser extends Person {
 		Input.setMessageInvalidInput("Can't withdraw more than your daily amount: " + maxWithdrawal);
 		
 		amount = Input.getDoubleUntilValid(0, maxWithdrawal);
-				
+		
+		if ( (account.getDailyWithdrawal() + amount) > maxWithdrawal ){
+			String msg = "Your current daily withdrawal is " +account.getDailyWithdrawal()+
+					" can't withdraw more than your daily amount: " + maxWithdrawal;
+			System.out.println(msg);
+			Input.pressAnyKeyToContinue();
+			return;
+		}
+
 		executeWithdraw(amount);
 		
 		checkBalance();
-	
 	}
 	
 	protected void executeWithdraw(double amount) {
+		account.setDailyWithdrawl(account.getDailyWithdrawal() + amount);
 		account.withdraw(amount);
 		account.addActivityLog(ActivityName.WITHDRAWAL, (-1)*(amount));
 	}
@@ -281,22 +290,25 @@ public class AccountUser extends Person {
 			return;
 		}
 		
-		monthlyReturn = amount / payments;
-		System.out.println( String.format("Your loan is %f over %d payments", amount, payments) );
-		System.out.println( String.format("Your monthly return is %f", monthlyReturn) );
+		//monthlyReturn = amount / payments;
+		Loan loan = new Loan(amount, account.getAccountProperties().getInterest(), payments);
 		
-		executeLoan(amount);
+		System.out.println(loan);
+		
+		executeLoan(loan);
 		
 		checkBalance();
 	}
 	
-	protected void executeLoan(double amount) {
+	protected void executeLoan(Loan loan) {
 		AccountUser bankManager = DataBase.getBankAccountUser();
 		
-		account.deposit(amount);
-		bankManager.account.withdraw(amount);
+		account.deposit(loan.getAmount());
+		bankManager.account.withdraw(loan.getAmount());
 		
-		account.addActivityLog(ActivityName.LOAN, amount);
-		bankManager.account.addActivityLog(ActivityName.LOAN, -amount, getPhoneNumber()+" account took a loan");
+		account.addActivityLog(ActivityName.LOAN, loan.getAmount());
+		bankManager.account.addActivityLog(ActivityName.LOAN, loan.getAmount(), getPhoneNumber()+" account took a loan");
+		
+		account.setLoan(loan);
 	}
 }

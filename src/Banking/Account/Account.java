@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import Banking.ActivityLog.ActivityLog;
 import Banking.ActivityLog.ActivityName;
+import Banking.Loan.Loan;
 
 public class Account {
 	private static final double DEFAULT_BALANCE = 0f;
@@ -12,6 +13,8 @@ public class Account {
 	
 	protected double balance;
 	protected AccountProperties accountProperties;
+	protected Loan loan;
+	protected double dailyWithdrawal; 
 	
 	protected ActivityLog[] activityLogs;
 	private int activityLogIndex;
@@ -32,6 +35,8 @@ public class Account {
 		setAccountProperties(accountProperties);
 		activityLogs = new ActivityLog[ACTIVITY_LOG_SIZE];
 		activityLogIndex = 0;
+		loan = null;
+		dailyWithdrawal = 0;
 	}
 
 	// setters getters
@@ -65,6 +70,19 @@ public class Account {
 	
 	public void withdraw(double amount) {
 		balance -= amount;
+	}
+	
+	public void setLoan(Loan loan) {
+		this.loan = loan;
+	}
+	
+	public void setDailyWithdrawl(double amount) {
+		if (amount < 0) return;
+		this.dailyWithdrawal = amount;
+	}
+	
+	public double getDailyWithdrawal() {
+		return this.dailyWithdrawal;
 	}
 	
 	/**

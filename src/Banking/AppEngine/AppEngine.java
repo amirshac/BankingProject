@@ -162,46 +162,6 @@ public class AppEngine {
 			break;
 		}
 	}
-	/*
-	private void handleManagerMenu() {
-		currentMenu = managerMenu;
-		currentMenu.play();
-		
-		switch(currentMenu.getChoice()) {
-		case "B":
-			currentUser.checkBalance();
-			break;
-			
-		case "D":
-			currentUser.makeDeposit();
-			break;
-			
-		case "W":
-			currentUser.withdraw();
-			break;
-		
-		case "A":
-			currentUser.reportActivity();
-			break;
-			
-		case "T":
-			currentUser.transferFunds();
-			break;
-			
-		case "L":
-			currentUser.getLoan();
-			break;
-			
-		case "Q":
-			logOut();
-			break;
-			
-		default:
-			state = AppState.LOGGED_IN;
-			break;
-		
-	}
-	*/
 	
 	// TODO: user lock mechanism time
 	public void handleLoginScreen() {
@@ -260,6 +220,7 @@ public class AppEngine {
 		this.currentUser = accountUser;
 		
 		this.state = AppState.LOGGED_IN;
+		if ( isCurrentUserBankManager() ) this.state = AppState.MANAGER_LOGGED_IN;
 	}
 	
 	/**
@@ -379,6 +340,10 @@ public class AppEngine {
 		currentUser = null;
 		
 		state = AppState.WELCOME_SCREEN;
+	}
+	
+	protected boolean isCurrentUserBankManager() {
+		return (currentUser instanceof BankManagerUser);
 	}
 			
 }
