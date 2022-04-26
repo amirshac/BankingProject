@@ -257,7 +257,12 @@ public class AccountUser extends Person {
 		double maxLoan = account.getAccountProperties().getMaxLoan();
 		double amount;
 		int payments;
-		double monthlyReturn;
+		
+		if (account.hasLoan()) {
+			System.out.println("Account already has a loan. Aborting...");
+			Input.pressAnyKeyToContinue();
+			return;
+		}
 		
 		Input.clear();
 		Input.setMessageEnterInput("Enter loan amount:");

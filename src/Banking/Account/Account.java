@@ -76,6 +76,10 @@ public class Account {
 		this.loan = loan;
 	}
 	
+	public boolean hasLoan() {
+		return (loan!=null);
+	}
+	
 	public void setDailyWithdrawl(double amount) {
 		if (amount < 0) return;
 		this.dailyWithdrawal = amount;

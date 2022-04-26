@@ -38,6 +38,7 @@ public class AppEngine {
 	public void play() {
 		
 		// auto log in for tests:
+		//login("admin", "admin11");
 		login("amir", "amir11");
 		
 		while (keepGoing){
@@ -58,7 +59,7 @@ public class AppEngine {
 			break;
 			
 		case MANAGER_LOGGED_IN:
-			//handleManagerMenu();
+				handleAccountMenu();
 			break;
 			
 		case BILLS_MENU:

@@ -1,6 +1,7 @@
 package Banking.Users;
 
 import Banking.Account.Account;
+import Banking.Input.Input;
 
 public class BankManagerUser extends AccountUser{
 	// need to implement
@@ -14,5 +15,11 @@ public class BankManagerUser extends AccountUser{
 	public BankManagerUser(Person person){
 		super(person);
 	}
-
+	
+	@Override
+	public void getLoan() {
+		System.out.println(account);
+		account.printActivityLog();
+		Input.pressAnyKeyToContinue();
+	}
 }
