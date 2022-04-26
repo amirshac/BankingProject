@@ -10,12 +10,9 @@ public class BankManagerUser extends AccountUser{
 		super(person, monthlyIncome, account, credentials);
 	}
 	
-	//public BankManagerUser(Person person){
-	//	super(person);
-//	}
-	
 	@Override
 	public void getLoan() {
+		System.out.println("Manager information");
 		System.out.println(account);
 		account.printActivityLog();
 		Input.pressAnyKeyToContinue();

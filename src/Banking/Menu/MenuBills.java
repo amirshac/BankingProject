@@ -10,6 +10,25 @@ public class MenuBills extends Menu {
 	}
 	
 	protected void handleChoice() {
+		switch(choice) {
+		case "W":
+			currentUser.payWaterBill();
+			break;
+			
+		case "E":
+			currentUser.payElectricBill();
+			break;
+			
+		case "B":
+			currentUser.payBank();
+			break;
+		
+		case "Q":
+			break;
+			
+		default:
+			break;
+		}
 		
 	}
 }

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import Banking.Account.Account;
 import Banking.Account.AccountProperties;
-import Banking.AppEngine.AppState;
 import Banking.DataBase.DataBase;
 import Banking.Input.Input;
 import Banking.Users.AccountUser;

@@ -8,7 +8,6 @@ public class UserInterface {
 	public Menu menuCurrent;
 	public Menu menuWelcome;
 	public Menu menuAccount;
-	public Menu menuManager;
 	public Menu menuBills;
 	
 	public UserInterface() {
@@ -20,8 +19,6 @@ public class UserInterface {
 		menuWelcome.setUser(user);
 		menuAccount = new MenuAccount();
 		menuAccount.setUser(user);
-		menuManager = new MenuManager();
-		menuManager.setUser(user);
 		menuBills = new MenuBills();
 		menuBills.setUser(user);
 	}

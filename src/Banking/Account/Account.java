@@ -18,7 +18,6 @@ public class Account {
 	
 	protected ActivityLog[] activityLogs;
 	private int activityLogIndex;
-
 	
 	// constructors 
 	public Account() {

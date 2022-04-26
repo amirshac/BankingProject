@@ -1,5 +1,4 @@
 package Banking.Users;
-import java.time.LocalDate;
 
 import Banking.Account.Account;
 import Banking.ActivityLog.ActivityName;
@@ -8,9 +7,7 @@ import Banking.Input.Input;
 import Banking.Loan.Loan;
 import Banking.Menu.UserInterface;
 
-public class AccountUser extends Person {
-	private static final double DEFAULT_MONTHLY_INCOME = 0f;
-	
+public class AccountUser extends Person {	
 	protected double monthlyIncome;
 	protected Account account;
 	protected Credentials credentials;
@@ -18,14 +15,6 @@ public class AccountUser extends Person {
 	public UserInterface UI;
 	
 	// constructors 
-	/*
-	public AccountUser(String firstName, String lastName, String phoneNumber, LocalDate birthDate,
-			double monthlyIncome, Account account) {
-		super(firstName, lastName, phoneNumber, birthDate);
-		this.monthlyIncome = monthlyIncome;
-		this.account = account;	
-		UI = new UserInterface();
-	}*/
 
 	public AccountUser(Person person, double monthlyIncome, Account account, Credentials credentials) {
 		super(person);
@@ -34,38 +23,6 @@ public class AccountUser extends Person {
 		this.credentials = credentials;
 		UI = new UserInterface(this); // UI object needs to refer to user object to activate functions
 	}
-	/*
-	public AccountUser(Person person, double monthlyIncome, Account account) {
-		super(person);
-		this.account = account;
-		this.monthlyIncome = monthlyIncome;
-		UI = new UserInterface();
-	}*/
-/*
-	public AccountUser(Person person, double monthlyIncome) {
-		super(person);
-		this.account = null;
-		this.monthlyIncome = monthlyIncome;
-	}
-
-	public AccountUser(Person person, Account account) {
-		super(person);
-		this.account = account;
-		this.monthlyIncome = DEFAULT_MONTHLY_INCOME;
-	}
-	
-	public AccountUser(Person person) {
-		super(person);
-		this.account = null;
-		this.monthlyIncome = DEFAULT_MONTHLY_INCOME;
-	}
-	
-	public AccountUser() {
-		super();
-		this.account = null;
-		this.monthlyIncome = DEFAULT_MONTHLY_INCOME;	
-	}
-*/
 	
 	// setters getters
 	public double getMonthlyIncome() {
@@ -321,5 +278,17 @@ public class AccountUser extends Person {
 		bankManager.account.addActivityLog(ActivityName.LOAN, loan.getAmount(), getPhoneNumber()+" account took a loan");
 		
 		account.setLoan(loan);
+	}
+	
+	public void payWaterBill() {
+		
+	}
+	
+	public void payElectricBill() {
+		
+	}
+	
+	public void payBank() {
+		
 	}
 }

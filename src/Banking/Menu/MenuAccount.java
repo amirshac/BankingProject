@@ -1,7 +1,5 @@
 package Banking.Menu;
 
-import Banking.AppEngine.AppState;
-
 public class MenuAccount extends Menu {
 	public MenuAccount() {
 		super("Operations Menu:");
@@ -19,7 +17,6 @@ public class MenuAccount extends Menu {
 	 * Plays 'account menu' and activates functions according to user input
 	 */
 	protected void handleChoice(){
-		
 		switch(choice) {
 		case "B":
 			currentUser.checkBalance();
