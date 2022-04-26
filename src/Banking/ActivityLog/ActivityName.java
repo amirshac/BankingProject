@@ -7,5 +7,6 @@ public enum ActivityName {
 	TRANSFER,
 	RECEIVE,
 	LOAN,
-	BILLS
+	BILLS,
+	FEE
 }

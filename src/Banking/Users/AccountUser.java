@@ -24,35 +24,16 @@ public class AccountUser extends Person {
 		UI = new UserInterface(this); // UI object needs to refer to user object to activate functions
 	}
 	
-	// setters getters
-	public double getMonthlyIncome() {
-		return monthlyIncome;
-	}
-
-	public void setMonthlyIncome(double monthlyIncome) {
-		this.monthlyIncome = monthlyIncome;
-	}
-	
+	// SETTERS GETTERS
 	public Account getAccount() {
 		return account;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-
-	public void setCredentials(Credentials cred) {
-		this.credentials = cred;
-	}
 	
 	public void setCredentials(String user, String password) {
 		this.credentials = new Credentials(user, password);
 	}
-	
-	public Credentials getCredentials() {
-		return this.credentials;
-	}
-	
+		
 	public String getUserName() {
 		if (this.credentials == null)
 				return null;
@@ -69,6 +50,14 @@ public class AccountUser extends Person {
 	
 	public boolean isLocked() {
 		return this.isLocked;
+	}
+	
+	public void lockAccount() {
+		this.isLocked = true;
+	}
+	
+	public void unlockAccount() {
+		this.isLocked = false;
 	}
 	
 	@Override
@@ -90,10 +79,22 @@ public class AccountUser extends Person {
 	 * displays account balance
 	 */
 	public void checkBalance() {
-		double balance = account.getBalance();
-		System.out.println(account.getAccountProperties()+ " account balance: " + balance);
-		
+		System.out.println(account.getAccountProperties()+ " account balance: " + account.getBalance());
 		Input.pressAnyKeyToContinue();
+	}
+	
+	/**
+	 * Pays transaction fee to bank manager and updates logs
+	 */
+	public void payTransactionFee() {
+		AccountUser bankManager = DataBase.getBankAccountUser();
+		float fee = account.getAccountProperties().getOperationFee();
+		
+		account.withdraw(fee);
+		bankManager.getAccount().deposit(fee);
+		
+		account.addActivityLog(ActivityName.FEE, (-1)*fee);
+		bankManager.getAccount().addActivityLog(ActivityName.FEE, fee, "Fee from account " + this.phoneNumber);
 	}
 	
 	/**
@@ -121,14 +122,7 @@ public class AccountUser extends Person {
 	protected void executeDeposit(double amount) {
 		account.deposit(amount);
 		account.addActivityLog(ActivityName.DEPOSIT, amount);
-	}
-	
-	public void lockAccount() {
-		this.isLocked = true;
-	}
-	
-	public void unlockAccount() {
-		this.isLocked = false;
+		payTransactionFee();
 	}
 	
 	/**
@@ -162,6 +156,7 @@ public class AccountUser extends Person {
 		account.setDailyWithdrawl(account.getDailyWithdrawal() + amount);
 		account.withdraw(amount);
 		account.addActivityLog(ActivityName.WITHDRAWAL, (-1)*(amount));
+		payTransactionFee();
 	}
 	
 	
@@ -210,6 +205,8 @@ public class AccountUser extends Person {
 		
 		account.addActivityLog(ActivityName.TRANSFER, (-1)*amount, "Transfered to " + phoneNumber);
 		receiverUser.account.addActivityLog(ActivityName.RECEIVE, amount, "Received from " + this.getPhoneNumber());
+		
+		payTransactionFee();
 	}
 		
 	// TODO: implement bank manager account to take loan from
@@ -275,9 +272,11 @@ public class AccountUser extends Person {
 		bankManager.account.withdraw(loan.getAmount());
 		
 		account.addActivityLog(ActivityName.LOAN, loan.getAmount());
-		bankManager.account.addActivityLog(ActivityName.LOAN, loan.getAmount(), getPhoneNumber()+" account took a loan");
+		bankManager.account.addActivityLog(ActivityName.LOAN, (-1)*(loan.getAmount()), getPhoneNumber()+" account took a loan");
 		
 		account.setLoan(loan);
+		
+		payTransactionFee();
 	}
 	
 	public void payWaterBill() {

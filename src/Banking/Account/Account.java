@@ -100,8 +100,7 @@ public class Account {
 		if (activityLogIndex >= ACTIVITY_LOG_SIZE) {
 			System.out.println("Activity log full, can't add logs");
 			return;
-		}
-		
+		}	
 		activityLogs[activityLogIndex] = activityLog;
 		activityLogIndex ++;
 	}
