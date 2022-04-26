@@ -163,6 +163,11 @@ public class DataBase {
 		if ( index >= DB_index || index < 0) return null;
 		return personArr[index];
 	}
+	
+	public static AccountUser getBankAccountUser() {
+		return getAccountUserUsingIndex(0);
+	}
+	
 	/**
 	 * Populates database with some demo users, including bank manager
 	 */

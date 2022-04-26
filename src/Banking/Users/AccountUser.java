@@ -149,11 +149,15 @@ public class AccountUser extends Person {
 		Input.setMessageInvalidInput("Amount must be alteast 0");
 		
 		amount = Input.getDoubleUntilValidMin(MIN_DEPOSIT);
-		account.deposit(amount);
 		
-		account.addActivityLog(ActivityName.DEPOSIT, amount);
+		executeDeposit(amount);
 		
 		checkBalance();
+	}
+	
+	protected void executeDeposit(double amount) {
+		account.deposit(amount);
+		account.addActivityLog(ActivityName.DEPOSIT, amount);
 	}
 	
 	public void lockAccount() {
@@ -178,12 +182,17 @@ public class AccountUser extends Person {
 		
 		amount = Input.getDoubleUntilValid(0, maxWithdrawal);
 				
-		account.withdraw(amount);
-		
-		account.addActivityLog(ActivityName.WITHDRAWAL, (-1)*(amount));
+		executeWithdraw(amount);
 		
 		checkBalance();
-}
+	
+	}
+	
+	protected void executeWithdraw(double amount) {
+		account.withdraw(amount);
+		account.addActivityLog(ActivityName.WITHDRAWAL, (-1)*(amount));
+	}
+	
 	
 	// TODO: elaborate on reportactivity - sorted list, input time
 	public void reportActivity() {
@@ -217,22 +226,30 @@ public class AccountUser extends Person {
 		
 		amount = Input.getDoubleUntilValid(0, TRANSFER_MAX);
 		
-		account.withdraw(amount);
-		receiverUser.account.deposit(amount);
-		
-		account.addActivityLog(ActivityName.TRANSFER, -amount, "Transfered to " + phoneNumber);
-		account.addActivityLog(ActivityName.RECEIVE, amount, "Received from " + this.getPhoneNumber());
+		executeTransferFunds(amount, receiverUser);
 		
 		System.out.println("Transfer complete");
 		checkBalance();
 	}
 	
+	protected void executeTransferFunds(double amount, AccountUser receiverUser) {
+		account.withdraw(amount);
+		receiverUser.account.deposit(amount);
+		
+		account.addActivityLog(ActivityName.TRANSFER, (-1)amount, "Transfered to " + phoneNumber);
+		receiverUser.account.addActivityLog(ActivityName.RECEIVE, amount, "Received from " + this.getPhoneNumber());
+	}
+		
+	// TODO: implement bank manager account to take loan from
 	public void getLoan() {
 		final int MAX_PAYMENTS = 60;
+		final int MIN_PAYMENTS = 1;
 		final double MAX_INPUT = 9999999;
 		
 		double maxLoan = account.getAccountProperties().getMaxLoan();
 		double amount;
+		int payments;
+		double monthlyReturn;
 		
 		Input.clear();
 		Input.setMessageEnterInput("Enter loan amount:");
@@ -247,10 +264,40 @@ public class AccountUser extends Person {
 		}
 		
 		if (amount > maxLoan) {
-			System.out.println(account.getAccountProperties()+" accounts can't loan more than" + maxLoan + " aborting..");
+			System.out.println(account.getAccountProperties()+" accounts can't loan more than " + maxLoan + " aborting..");
 			Input.pressAnyKeyToContinue();
 			return;
 		}
 		
+		
+		Input.clear();
+		Input.setMessageEnterInput("Enter payments:");
+		Input.setMessageInvalidInput("payments must be atleast " + MIN_PAYMENTS);
+		
+		payments = (int)Input.getDoubleUntilValidMin(MIN_PAYMENTS);
+		
+		if ( payments < MIN_PAYMENTS || payments > MAX_PAYMENTS) {
+			System.out.println("Loan can't be more than " + MAX_PAYMENTS + " payments. Aborting...");
+			Input.pressAnyKeyToContinue();
+			return;
+		}
+		
+		monthlyReturn = amount / payments;
+		System.out.println( String.format("Your loan is %f over %d payments", amount, payments) );
+		System.out.println( String.format("Your monthly return is %f", monthlyReturn) );
+		
+		executeLoan(amount);
+		
+		checkBalance();
+	}
+	
+	protected void executeLoan(double amount) {
+		AccountUser bankManager = DataBase.getBankAccountUser();
+		
+		account.deposit(amount);
+		bankManager.account.withdraw(amount);
+		
+		account.addActivityLog(ActivityName.LOAN, amount);
+		bankManager.account.addActivityLog(ActivityName.LOAN, -amount, getPhoneNumber()+" account took a loan");
 	}
 }

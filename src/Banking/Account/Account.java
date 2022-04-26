@@ -10,7 +10,6 @@ public class Account {
 	private static final AccountProperties DEFAULT_ACCOUNT_PROPERTIES = AccountProperties.BRONZE;
 	private static final int ACTIVITY_LOG_SIZE = 100;
 	
-	
 	protected double balance;
 	protected AccountProperties accountProperties;
 	

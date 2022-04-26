@@ -5,5 +5,7 @@ public enum ActivityName {
 	WITHDRAWAL,
 	DEPOSIT,
 	TRANSFER,
-	RECEIVE
+	RECEIVE,
+	LOAN,
+	BILLS
 }

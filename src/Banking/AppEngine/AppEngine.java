@@ -168,6 +168,8 @@ public class AppEngine {
 				tries ++;
 				System.out.println(MSG_INVALID_CREDENTIALS);
 				System.out.println("Tries remaining until lockout: " + (LOCKOUT_TRIES-tries));
+			}else {
+				break;
 			}
 		}
 		
