@@ -280,14 +280,34 @@ public class AccountUser extends Person {
 	}
 	
 	public void payWaterBill() {
-		
+		payBill();
+		System.out.println("Paid water bill");
+		checkBalance();
 	}
 	
 	public void payElectricBill() {
-		
+		payBill();
+		System.out.println("Paid electric bill");
+		checkBalance();
 	}
 	
 	public void payBank() {
+		System.out.println("not implemented");
+		Input.pressAnyKeyToContinue();
+	}
+	
+	public void payBill() {
+		final double MAX_AMOUNT = 5000;
+		double amount;
 		
+		Input.clear();
+		Input.setMessageEnterInput("Enter amount:");
+		Input.setMessageInvalidInput("Amout must be between 0 and " + MAX_AMOUNT);
+		amount = Input.getDoubleUntilValid(0, MAX_AMOUNT);
+		
+		account.withdraw(amount);
+		account.addActivityLog(ActivityName.BILLS, (-1)*amount);
+		
+		payTransactionFee();
 	}
 }
