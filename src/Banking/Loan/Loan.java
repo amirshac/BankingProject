@@ -85,8 +85,6 @@ public class Loan {
 
 	public void setDebt(double debt) {
 		this.debt = debt;
-	}
-	
-	
+	}	
 		
 }

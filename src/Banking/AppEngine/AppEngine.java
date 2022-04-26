@@ -37,10 +37,6 @@ public class AppEngine {
 	
 	public void play() {
 		
-		// auto log in for tests:
-		//login("admin", "admin11");
-		login("amir", "amir11");
-		
 		while (keepGoing){
 			executeState();
 		}
@@ -181,7 +177,7 @@ public class AppEngine {
 			return;
 		}			
 		
-		if (DataBase.personArr[index].isLocked()) {
+		if (DataBase.userArr[index].isLocked()) {
 			System.out.println("Account is locked");
 			state = AppState.WELCOME_SCREEN;
 			return;
@@ -204,7 +200,7 @@ public class AppEngine {
 		if (tries >= LOCKOUT_TRIES && accountUser == null) {
 			System.out.println("Account locked");
 			// TODO: set time for lockout
-			DataBase.personArr[index].lockAccount();
+			DataBase.userArr[index].lockAccount();
 			return;
 		}
 				
@@ -309,7 +305,7 @@ public class AppEngine {
 		Account account = new Account(0, AccountProperties.BRONZE);
 		Credentials credentials = new Credentials(userName, password);
 		AccountUser accountUser = new AccountUser(person, monthlyIncome, account, credentials);
-		DataBase.addPersonToDB(accountUser);
+		DataBase.addUserToDB(accountUser);
 		
 		System.out.println("Account succesfully created. Approval is pending by the bank manager");
 		System.out.println();
@@ -333,10 +329,6 @@ public class AppEngine {
 		currentUser = null;
 		
 		state = AppState.WELCOME_SCREEN;
-	}
-	
-	protected boolean isCurrentUserBankManager() {
-		return (currentUser instanceof BankManagerUser);
 	}
 			
 }

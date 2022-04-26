@@ -10,19 +10,19 @@ public class DataBase {
 	private static int DB_SIZE = 100;
 	private static int DB_index = 0;
 	
-	public static AccountUser[] personArr = new AccountUser[DB_SIZE];
+	public static AccountUser[] userArr = new AccountUser[DB_SIZE];
 
 	/**
 	 * Adds user to database
 	 * @param user
 	 */
-	public static void addPersonToDB(AccountUser user) {
+	public static void addUserToDB(AccountUser user) {
 		if (DB_index >= DB_SIZE) {
 			System.out.println("ERROR DataBase Limit reached can't insert");
 			return;
 		}
 		
-		personArr[DB_index] = user;
+		userArr[DB_index] = user;
 		DB_index++;
 	}
 	
@@ -72,7 +72,7 @@ public class DataBase {
 		String str;
 		
 		for (int i=0; i<DB_index; i++) {
-			str = personArr[i].getUserName();
+			str = userArr[i].getUserName();
 			
 			if (userName.equals(str)) {
 				result = i;
@@ -93,7 +93,7 @@ public class DataBase {
 		String str;
 		
 		for (int i=0; i<DB_index; i++) {
-			str = personArr[i].getPhoneNumber();
+			str = userArr[i].getPhoneNumber();
 			
 			if (phoneNumber.equals(str)) {
 				result = i;
@@ -116,11 +116,11 @@ public class DataBase {
 		int index = getIndexOfUsername(credentials.getUserName());
 		if (index == -1) return null;
 		
-		password = personArr[index].getPassword();
+		password = userArr[index].getPassword();
 		if (password == null) return null;
 		
 		if (password.equals(credentials.getPassword()))
-			result = personArr[index];
+			result = userArr[index];
 		
 		return result;
 	}
@@ -150,7 +150,7 @@ public class DataBase {
 		if (index == -1)
 			return null;
 		
-		result = personArr[index];
+		result = userArr[index];
 		return result;
 	}
 	
@@ -161,7 +161,7 @@ public class DataBase {
 	 */
 	public static AccountUser getAccountUserUsingIndex(int index) {
 		if ( index >= DB_index || index < 0) return null;
-		return personArr[index];
+		return userArr[index];
 	}
 	
 	public static AccountUser getBankAccountUser() {
@@ -195,7 +195,7 @@ public class DataBase {
 		credentials = new Credentials("admin", "admin11");
 		bankManager.setCredentials(credentials);
 		
-		addPersonToDB(bankManager);
+		addUserToDB(bankManager);
 		
 		income = 3000;
 		balance = 500;
@@ -204,7 +204,7 @@ public class DataBase {
 		account = new Account(balance, AccountProperties.BRONZE);
 		credentials = new Credentials("amir", "amir11");
 		accountUser = new AccountUser(person, income, account, credentials);
-		addPersonToDB(accountUser);
+		addUserToDB(accountUser);
 		
 		income = 9000;
 		balance = 22453;	
@@ -212,7 +212,7 @@ public class DataBase {
 		account = new Account(balance, AccountProperties.SILVER);
 		accountUser = new AccountUser(person, income, account);
 		accountUser.setCredentials("benben", "ben11");
-		addPersonToDB(accountUser);
+		addUserToDB(accountUser);
 		
 		income = 15000;
 		balance = 34898;	
@@ -220,7 +220,7 @@ public class DataBase {
 		account = new Account(balance, AccountProperties.GOLD);
 		accountUser = new AccountUser(person, income, account);
 		accountUser.setCredentials("cody", "cody11");
-		addPersonToDB(accountUser);
+		addUserToDB(accountUser);
 		
 		income = 20000;
 		balance = 943112;	
@@ -228,12 +228,12 @@ public class DataBase {
 		account = new Account(balance, AccountProperties.TITANIUM);
 		accountUser = new AccountUser(person, income, account);
 		accountUser.setCredentials("dory", "dory11");
-		addPersonToDB(accountUser);
+		addUserToDB(accountUser);
 	}
 	
 	private static void populateAccountActivitiesDB() {
 		// TODO populate account acitivies in database
-		AccountUser accountUser = personArr[4];
+		AccountUser accountUser = userArr[4];
 		
 		ActivityLog activityLog = new ActivityLog();
 		accountUser.getAccount().addActivityLog(activityLog);
@@ -243,7 +243,7 @@ public class DataBase {
 	public static void print() {
 		System.out.println(DB_index + " elements in database:\n");
 		for (int i=0; i<DB_index; i++) {
-			System.out.println(personArr[i]);
+			System.out.println(userArr[i]);
 			System.out.println();
 		}
 	}
