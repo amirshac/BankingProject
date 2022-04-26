@@ -1,8 +1,10 @@
 package Banking.Users;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import Banking.Account.Account;
 import Banking.ActivityLog.ActivityName;
+import Banking.DataBase.DataBase;
 import Banking.Input.Input;
 
 public class AccountUser extends Person {
@@ -183,9 +185,44 @@ public class AccountUser extends Person {
 		checkBalance();
 }
 	
-	
 	public void reportActivity() {
 		account.printActivityLog();
 		Input.pressAnyKeyToContinue();
+	}
+	
+	public void transferFunds() {
+		final double TRANSFER_MAX = 2000;
+		double amount = 0;
+		String phoneNumber = null;
+		int phoneNumberAccountIndex = 0;
+		AccountUser receiverUser = null;
+		
+		phoneNumber = Input.getPhoneNumberUntilValid();
+		phoneNumberAccountIndex = DataBase.getIndexOfPhoneNumber(phoneNumber);
+		
+		if (phoneNumberAccountIndex == -1) {
+			System.out.println("Account not found in database, aborting..");
+			Input.pressAnyKeyToContinue();
+			return;
+		}
+		
+		receiverUser = DataBase.getAccountUserUsingIndex(phoneNumberAccountIndex);
+		
+		System.out.println(receiverUser.getFullName() + " found!");
+		
+		Input.clear();
+		Input.setMessageEnterInput("Enter transfer amount:");
+		Input.setMessageInvalidInput("Can't transfer more than " + TRANSFER_MAX);
+		
+		amount = Input.getDoubleUntilValid(0, TRANSFER_MAX);
+		
+		account.withdraw(amount);
+		receiverUser.account.deposit(amount);
+		
+		account.addActivityLog(ActivityName.TRANSFER, -amount, "Transfered to " + phoneNumber);
+		account.addActivityLog(ActivityName.RECEIVE, amount, "Received from " + this.getPhoneNumber());
+		
+		System.out.println("Transfer complete");
+		checkBalance();
 	}
 }

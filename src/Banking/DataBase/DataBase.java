@@ -8,7 +8,7 @@ public class DataBase {
 	
 //	public static LinkedList<Person> personList = new LinkedList<>();
 	private static int DB_SIZE = 100;
-	private static int index = 0;
+	private static int DB_index = 0;
 	
 	public static AccountUser[] personArr = new AccountUser[DB_SIZE];
 
@@ -17,17 +17,17 @@ public class DataBase {
 	 * @param user
 	 */
 	public static void addPersonToDB(AccountUser user) {
-		if (index >= DB_SIZE) {
+		if (DB_index >= DB_SIZE) {
 			System.out.println("ERROR DataBase Limit reached can't insert");
 			return;
 		}
 		
-		personArr[index] = user;
-		index++;
+		personArr[DB_index] = user;
+		DB_index++;
 	}
 	
 	public int getSize() {
-		return index;
+		return DB_index;
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class DataBase {
 		int result = -1;
 		String str;
 		
-		for (int i=0; i<index; i++) {
+		for (int i=0; i<DB_index; i++) {
 			str = personArr[i].getUserName();
 			
 			if (userName.equals(str)) {
@@ -92,7 +92,7 @@ public class DataBase {
 		int result = -1;
 		String str;
 		
-		for (int i=0; i<index; i++) {
+		for (int i=0; i<DB_index; i++) {
 			str = personArr[i].getPhoneNumber();
 			
 			if (phoneNumber.equals(str)) {
@@ -154,6 +154,15 @@ public class DataBase {
 		return result;
 	}
 	
+	/**
+	 * returns account user object according to index in database
+	 * @param index
+	 * @return account user, or NULL of invalid index
+	 */
+	public static AccountUser getAccountUserUsingIndex(int index) {
+		if ( index >= DB_index || index < 0) return null;
+		return personArr[index];
+	}
 	/**
 	 * Populates database with some demo users, including bank manager
 	 */
@@ -227,8 +236,8 @@ public class DataBase {
 	}
 	
 	public static void print() {
-		System.out.println(index + " elements in database:\n");
-		for (int i=0; i<index; i++) {
+		System.out.println(DB_index + " elements in database:\n");
+		for (int i=0; i<DB_index; i++) {
 			System.out.println(personArr[i]);
 			System.out.println();
 		}

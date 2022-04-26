@@ -39,8 +39,7 @@ public class ActivityLog {
 
 	@Override
 	public String toString() {
-		return "ActivityLog [name=" + name + ", balanceChange=" + balanceChange + ", timeStamp=" + timeStamp + ", info="
-				+ info + "]";
+		return "ActivityLog ["+ name + ", balanceChange= " + balanceChange + ", timeStamp=" + timeStamp + ", info="+ info + "]";
 	}
 	
 }

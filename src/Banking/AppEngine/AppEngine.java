@@ -110,6 +110,10 @@ public class AppEngine {
 			currentUser.reportActivity();
 			break;
 			
+		case "T":
+			currentUser.transferFunds();
+			break;
+			
 		case "Q":
 			logOut();
 			break;
@@ -203,9 +207,7 @@ public class AppEngine {
 		return result;
 	}
 	
-	public void createAccount() {
-		final int PHONE_NUMBER_LEN = 10; 
-		
+	public void createAccount() {		
 		final double MONTHLY_INCOME_MIN = 0f;
 	
 		boolean doesPhoneNumberExist = false;
@@ -223,15 +225,7 @@ public class AppEngine {
 		System.out.println("===================");
 	
 		// phone number input
-		Input.clear();
-		Input.setMessageEnterInput("Enter phone Number:");
-		Input.setMessageInvalidInput("Invalid input - Phone Number must be 10 digits");
-		Input.setFlagCheckLength(true);
-		Input.setMinLength(PHONE_NUMBER_LEN);
-		Input.setMaxLength(PHONE_NUMBER_LEN);
-		Input.setFlagOnlyNumbers(true);
-		
-		phoneNumber = Input.getInputUntilValid();
+		phoneNumber = Input.getPhoneNumberUntilValid();
 		doesPhoneNumberExist = DataBase.doesPhoneNumberExist(phoneNumber);
 			
 		if (doesPhoneNumberExist) {

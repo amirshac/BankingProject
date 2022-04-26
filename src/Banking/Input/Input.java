@@ -239,6 +239,24 @@ public class Input {
 		password = getInputUntilValid();
 		return password;
 	}
+	
+	// special input case for phone number
+	public static String getPhoneNumberUntilValid() {
+		String phoneNumber;
+		final int PHONE_NUMBER_LEN = 10;
+		
+		clear();
+		setMessageEnterInput("Enter phone Number:");
+		setMessageInvalidInput("Invalid input - Phone Number must be 10 digits");
+		setFlagCheckLength(true);
+		setMinLength(PHONE_NUMBER_LEN);
+		setMaxLength(PHONE_NUMBER_LEN);
+		setFlagOnlyNumbers(true);
+		
+		phoneNumber = getInputUntilValid();
+		return phoneNumber;
+	}
+	
 	/**
 	 * Asks for numerical inputs to construct a localdate object
 	 * @return
@@ -276,6 +294,10 @@ public class Input {
 	
 	public static double getDoubleUntilValidMax(double max) {
 		return getDoubleUntilValid(Double.MIN_VALUE, max);
+	}
+	
+	public static double getPositiveDoubleUntilValidMax(double max) {
+		return getDoubleUntilValid(0.0, max);
 	}
 	
 	public static double getDoubleUntilValid(double min, double max) {

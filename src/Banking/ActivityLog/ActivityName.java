@@ -4,5 +4,6 @@ public enum ActivityName {
 	EMPTY,
 	WITHDRAWAL,
 	DEPOSIT,
-	TRANSFER
+	TRANSFER,
+	RECEIVE
 }

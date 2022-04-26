@@ -90,6 +90,10 @@ public class Account {
 	public void addActivityLog(ActivityName name, double balanceChange) {
 		addActivityLog(name, balanceChange, LocalDateTime.now(),"");
 	}
+	
+	public void addActivityLog(ActivityName name, double balanceChange, String info) {
+		addActivityLog(name, balanceChange, LocalDateTime.now(),info);
+	}
 
 	public void printActivityLog() {
 		if (activityLogIndex <= 0) {
