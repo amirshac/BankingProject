@@ -80,6 +80,10 @@ public class Account {
 		return (loan!=null);
 	}
 	
+	public Loan getLoan() {
+		return loan;
+	}
+	
 	public void setDailyWithdrawl(double amount) {
 		if (amount < 0) return;
 		this.dailyWithdrawal = amount;
@@ -125,6 +129,11 @@ public class Account {
 		System.out.println(activityLogIndex + " activities in log:");
 		for (int i=0; i<activityLogIndex; i++)
 			System.out.println(activityLogs[i]);
+	}
+	
+	public void printLoan() {
+		if (loan == null) return;
+		System.out.println(loan);
 	}
 	
 }

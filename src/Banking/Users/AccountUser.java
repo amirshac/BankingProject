@@ -205,6 +205,7 @@ public class AccountUser extends Person {
 	// TODO: elaborate on reportactivity - sorted list, input time
 	public void reportActivity() {
 		account.printActivityLog();
+		account.printLoan();
 		checkBalance();
 	}
 	
@@ -281,8 +282,7 @@ public class AccountUser extends Person {
 			Input.pressAnyKeyToContinue();
 			return;
 		}
-		
-		
+				
 		Input.clear();
 		Input.setMessageEnterInput("Enter payments:");
 		Input.setMessageInvalidInput("payments must be atleast " + MIN_PAYMENTS);

@@ -52,16 +52,8 @@ public class AppEngine {
 			handleWelcomeScreen();
 			break;
 		case LOGGED_IN:
-			if (this.currentUser instanceof BankManagerUser)
-				this.state = AppState.MANAGER_LOGGED_IN;
-			else
-				handleAccountMenu();
+			handleAccountMenu();
 			break;
-			
-		case MANAGER_LOGGED_IN:
-				handleAccountMenu();
-			break;
-			
 		case BILLS_MENU:
 			handleBillsMenu();
 			break;
@@ -76,7 +68,7 @@ public class AppEngine {
 	 * Plays 'welcome menu' and activates functions according to user input
 	 */
 	
-	private void handleWelcomeScreen() {
+	public void handleWelcomeScreen() {
 		currentMenu = welcomeMenu;
 		currentMenu.play();
 		
@@ -221,7 +213,7 @@ public class AppEngine {
 		this.currentUser = accountUser;
 		
 		this.state = AppState.LOGGED_IN;
-		if ( isCurrentUserBankManager() ) this.state = AppState.MANAGER_LOGGED_IN;
+		//if ( isCurrentUserBankManager() ) this.state = AppState.MANAGER_LOGGED_IN;
 	}
 	
 	/**
