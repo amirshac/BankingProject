@@ -1,11 +1,14 @@
 package Banking.Menu;
 
 import Banking.Input.*;
+import Banking.Users.AccountUser;
 
 public abstract class Menu {
 	private static final String DEFAULT_MENU_TITLE = "MENU";
 	private static final String DEFAULT_ERROR_MSG = "Wrong input please try again";
 	private static final int MENU_MAX_SIZE = 10;
+	
+	protected AccountUser currentUser; // who uses this menu
 	
 	protected int index;
 	protected String title;
@@ -76,6 +79,10 @@ public abstract class Menu {
 			
 		}
 		this.choice = inputStr;	
+		
+		// each menu will implement its own logic
+		handleChoice();
+		if (!this.choice.equals("Q")) this.play(); 
 	}
 	
 	/**
@@ -104,6 +111,15 @@ public abstract class Menu {
 	@Override
 	public String toString() {
 		return "Menu [title=" + title + ", optionList=" + optionList + "]";
+	}
+	
+	/**
+	 * Each menu will implement its own logic
+	 */
+	protected abstract void handleChoice();
+	
+	public void setUser(AccountUser user) {
+		this.currentUser = user;
 	}
 	
 }

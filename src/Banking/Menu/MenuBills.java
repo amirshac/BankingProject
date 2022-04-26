@@ -8,4 +8,10 @@ public class MenuBills extends Menu {
 		addOption("Bank (Repay Loan)", "B");
 		addOption("Previous menu", "Q");
 	}
+	
+	protected void handleChoice() {
+		
+	}
 }
+
+

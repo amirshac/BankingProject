@@ -6,6 +6,7 @@ import Banking.ActivityLog.ActivityName;
 import Banking.DataBase.DataBase;
 import Banking.Input.Input;
 import Banking.Loan.Loan;
+import Banking.Menu.UserInterface;
 
 public class AccountUser extends Person {
 	private static final double DEFAULT_MONTHLY_INCOME = 0f;
@@ -14,28 +15,33 @@ public class AccountUser extends Person {
 	protected Account account;
 	protected Credentials credentials;
 	protected boolean isLocked = false;
+	public UserInterface UI;
 	
 	// constructors 
+	/*
 	public AccountUser(String firstName, String lastName, String phoneNumber, LocalDate birthDate,
 			double monthlyIncome, Account account) {
 		super(firstName, lastName, phoneNumber, birthDate);
 		this.monthlyIncome = monthlyIncome;
 		this.account = account;	
-	}
+		UI = new UserInterface();
+	}*/
 
 	public AccountUser(Person person, double monthlyIncome, Account account, Credentials credentials) {
 		super(person);
 		this.account = account;
 		this.monthlyIncome = monthlyIncome;
 		this.credentials = credentials;
+		UI = new UserInterface(this); // UI object needs to refer to user object to activate functions
 	}
-	
+	/*
 	public AccountUser(Person person, double monthlyIncome, Account account) {
 		super(person);
 		this.account = account;
 		this.monthlyIncome = monthlyIncome;
-	}
-
+		UI = new UserInterface();
+	}*/
+/*
 	public AccountUser(Person person, double monthlyIncome) {
 		super(person);
 		this.account = null;
@@ -59,7 +65,7 @@ public class AccountUser extends Person {
 		this.account = null;
 		this.monthlyIncome = DEFAULT_MONTHLY_INCOME;	
 	}
-
+*/
 	
 	// setters getters
 	public double getMonthlyIncome() {

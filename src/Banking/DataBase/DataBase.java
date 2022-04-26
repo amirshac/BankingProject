@@ -190,10 +190,8 @@ public class DataBase {
 		
 		person = new Person("Donald", "Trump CEO", "0520000001", LocalDate.of(1946, 7, 14));
 		account = new Account(balance, AccountProperties.TITANIUM);
-		bankManager = new BankManagerUser(person, income, account);
-		
 		credentials = new Credentials("admin", "admin11");
-		bankManager.setCredentials(credentials);
+		bankManager = new BankManagerUser(person, income, account, credentials);
 		
 		addUserToDB(bankManager);
 		
@@ -208,26 +206,26 @@ public class DataBase {
 		
 		income = 9000;
 		balance = 22453;	
-		person = new Person("Ben", "Bigsby", "0520000003", LocalDate.of(1988, 1, 4));
+		person = new Person("Benny", "Bigsby", "0520000003", LocalDate.of(1988, 1, 4));
 		account = new Account(balance, AccountProperties.SILVER);
-		accountUser = new AccountUser(person, income, account);
-		accountUser.setCredentials("benben", "ben11");
+		credentials = new Credentials("benny", "benny11");
+		accountUser = new AccountUser(person, income, account, credentials);
 		addUserToDB(accountUser);
 		
 		income = 15000;
 		balance = 34898;	
 		person = new Person("Cody", "Connor", "0520000004", LocalDate.of(1960, 5, 23));
 		account = new Account(balance, AccountProperties.GOLD);
-		accountUser = new AccountUser(person, income, account);
-		accountUser.setCredentials("cody", "cody11");
+		credentials = new Credentials("cody", "cody11");
+		accountUser = new AccountUser(person, income, account, credentials);
 		addUserToDB(accountUser);
 		
 		income = 20000;
 		balance = 943112;	
 		person = new Person("Dory", "Dorshowitz", "0520000005", LocalDate.of(1962, 4, 23));
 		account = new Account(balance, AccountProperties.TITANIUM);
-		accountUser = new AccountUser(person, income, account);
-		accountUser.setCredentials("dory", "dory11");
+		credentials = new Credentials("dory", "dory11");
+		accountUser = new AccountUser(person, income, account, credentials);
 		addUserToDB(accountUser);
 	}
 	

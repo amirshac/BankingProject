@@ -6,15 +6,13 @@ import Banking.Input.Input;
 public class BankManagerUser extends AccountUser{
 	// need to implement
 	
-	public BankManagerUser(Person person, double monthlyIncome, Account account) {
-		super(person);
-		this.account = account;
-		this.monthlyIncome = monthlyIncome;
+	public BankManagerUser(Person person, double monthlyIncome, Account account, Credentials credentials) {
+		super(person, monthlyIncome, account, credentials);
 	}
 	
-	public BankManagerUser(Person person){
-		super(person);
-	}
+	//public BankManagerUser(Person person){
+	//	super(person);
+//	}
 	
 	@Override
 	public void getLoan() {

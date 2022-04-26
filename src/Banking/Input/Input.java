@@ -258,25 +258,45 @@ public class Input {
 	}
 	
 	/**
+	 * will try to get int even with errors until succeeds
+	 * @return int
+	 */
+	public static int getInt() {
+		String str;
+		int result;
+		
+		while(true) {
+			str = scanner.nextLine();
+			try {
+				result = Integer.parseInt(str);
+			}
+			catch(Exception e){
+				continue;
+			}
+			break;
+		}		
+	 return result;
+	}
+	
+	/**
 	 * Asks for numerical inputs to construct a localdate object
 	 * @return
 	 */
 	public static LocalDate getDate() {
 		LocalDate date = null;
 		int day, month, year;
-		String str;
 		
 		System.out.println("Input date - day:");
-		str = scanner.nextLine();
-		day = Integer.parseInt(str);
-		
+	
+		day = getInt();
+			
 		System.out.println("Input date - month:");
-		str = scanner.nextLine();
-		month = Integer.parseInt(str);
+		
+		month = getInt();
 
 		System.out.println("Input date - year:");
-		str = scanner.nextLine();
-		year = Integer.parseInt(str);
+		
+		year = getInt();
 
 		date = LocalDate.of(year, month, day);
 		
