@@ -29,6 +29,16 @@ public abstract class Menu {
 		index = 0;
 	}
 
+	/**
+	 * Each inherited menu will implement its own logic
+	 */
+	protected abstract void handleChoice();
+	
+	/**
+	 * Add an option and string command to the menu
+	 * @param optionName
+	 * @param optionCommand
+	 */
 	public void addOption(String optionName, String optionCommand) {
 		
 		if (index >= MENU_MAX_SIZE) {
@@ -46,7 +56,7 @@ public abstract class Menu {
 	}
 	
 	/**
-	 * Prints menu and all options in a subsequental order
+	 * Prints menu title and all options in order
 	 */
 	private void print() {
 		String msg = this.title + "\n";
@@ -103,19 +113,11 @@ public abstract class Menu {
 	}
 	
 	// setters getters
+	
+	// gets choice picked by 'play' function
 	public String getChoice() {
 		return this.choice;
 	}
-	
-	@Override
-	public String toString() {
-		return "Menu [title=" + title + ", optionList=" + optionList + "]";
-	}
-	
-	/**
-	 * Each menu will implement its own logic
-	 */
-	protected abstract void handleChoice();
 	
 	public void setUser(AccountUser user) {
 		this.currentUser = user;

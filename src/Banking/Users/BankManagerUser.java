@@ -4,7 +4,6 @@ import Banking.Account.Account;
 import Banking.Input.Input;
 
 public class BankManagerUser extends AccountUser{
-	// need to implement
 	
 	public BankManagerUser(Person person, double monthlyIncome, Account account, Credentials credentials) {
 		super(person, monthlyIncome, account, credentials);
@@ -13,6 +12,7 @@ public class BankManagerUser extends AccountUser{
 	@Override
 	public void getLoan() {
 		System.out.println("Manager information");
+		System.out.println("---------------------");
 		System.out.println(account);
 		account.printActivityLog();
 		Input.pressAnyKeyToContinue();

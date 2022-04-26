@@ -25,6 +25,7 @@ public class AppEngine {
 		System.out.println("Application terminated");
 	}
 	
+	// Function used to test users without login menu
 	public void testUser(String username, String pass) {
 		currentUser = DataBase.getAccountUserUsingCredentials(username, pass);
 		currentUser.UI.menuAccount.play();

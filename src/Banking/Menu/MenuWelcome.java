@@ -66,16 +66,15 @@ public class MenuWelcome extends Menu{
 			index = DataBase.getIndexOfUsername(userName);
 			if (index == -1) {
 				System.out.println(MSG_USERNAME_DOESNT_EXIST);
-				//state = AppState.WELCOME_SCREEN;
 				return;
 			}			
 			
 			if (DataBase.userArr[index].isLocked()) {
 				System.out.println("Account is locked");
-				//state = AppState.WELCOME_SCREEN;
 				return;
 			}
 			
+			// lockout user if given wrong password a few times
 			while (tries < LOCKOUT_TRIES){
 				password = Input.getPasswordUntilValid();
 			
@@ -90,15 +89,16 @@ public class MenuWelcome extends Menu{
 				}
 			}
 			
+			// accountUser null means we couldn't get user from database, means wrong password
 			if (tries >= LOCKOUT_TRIES && accountUser == null) {
 				System.out.println("Account locked");
 				// TODO: set time for lockout
 				DataBase.userArr[index].lockAccount();
 				return;
 			}
-					
+			 
 			System.out.println();
-			System.out.println(accountUser.getFirstName()+ " logged in!\n");
+			System.out.println(accountUser.getFullName()+ " logged in!\n");
 			
 			accountUser.UI.menuAccount.play();
 		}
@@ -172,6 +172,11 @@ public class MenuWelcome extends Menu{
 			Account account = new Account(0, AccountProperties.BRONZE);
 			Credentials credentials = new Credentials(userName, password);
 			AccountUser accountUser = new AccountUser(person, monthlyIncome, account, credentials);
+			
+			// TODO: unlock implementation by manager account
+			// lock account until released by manager - marked out until implementation of unlock
+			// accountUser.lockAccount(); 
+			
 			DataBase.addUserToDB(accountUser);
 			
 			System.out.println("Account succesfully created. Approval is pending by the bank manager");

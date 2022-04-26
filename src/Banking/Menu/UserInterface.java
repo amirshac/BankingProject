@@ -2,6 +2,13 @@ package Banking.Menu;
 
 import Banking.Users.AccountUser;
 
+/**
+ * Userinterface class holds all possible menus
+ * AccountUser object is optional - so menus will know who to address while activating functions
+ * Menus set to public so they can be accessed easily
+ * @author amir
+ *
+ */
 public class UserInterface {
 	
 	public AccountUser currentUser;
@@ -36,7 +43,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * get current menu choice as string
+	 * get current menu choice as string - returned from 'play' function
 	 * @return string
 	 */
 	public String getChoice() {

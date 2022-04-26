@@ -159,7 +159,6 @@ public class AccountUser extends Person {
 		payTransactionFee();
 	}
 	
-	
 	// TODO: elaborate on reportactivity - sorted list, input time
 	public void reportActivity() {
 		account.printActivityLog();

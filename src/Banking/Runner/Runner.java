@@ -11,7 +11,6 @@ public class Runner {
 	public static void main(String[] args) {		
 		DataBase.populateDataBase();
 		engine.play();
-		//engine.testUser("amir", "amir11");
 		Input.scanner.close();		
 	}
 }

@@ -56,9 +56,6 @@ public class MenuAccount extends Menu {
 	}		
 
 	private void logOut() {
-		if (currentUser == null)
-			System.out.println("logout() No user to log out");
-		
 		System.out.println("Logging out...\n");
 				
 		System.out.println(currentUser.getUserName() + " logged out.\n");
