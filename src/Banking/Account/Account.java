@@ -1,13 +1,15 @@
 package Banking.Account;
 
+import java.time.LocalDateTime;
+
 import Banking.ActivityLog.ActivityLog;
+import Banking.ActivityLog.ActivityName;
 
 public class Account {
 	private static final double DEFAULT_BALANCE = 0f;
 	private static final AccountProperties DEFAULT_ACCOUNT_PROPERTIES = AccountProperties.BRONZE;
 	private static final int ACTIVITY_LOG_SIZE = 100;
 	
-	//TODO set account properties according to accountproperties ENUM
 	
 	protected double balance;
 	protected AccountProperties accountProperties;
@@ -70,8 +72,7 @@ public class Account {
 	 * Adds activitylog to activity history array
 	 * @param activityLog
 	 */
-	public void addActivityLog(ActivityLog activityLog) {
-		
+	public void addActivityLog(ActivityLog activityLog) {	
 		if (activityLogIndex >= ACTIVITY_LOG_SIZE) {
 			System.out.println("Activity log full, can't add logs");
 			return;
@@ -81,7 +82,13 @@ public class Account {
 		activityLogIndex ++;
 	}
 	
-	public void addActivityLog(ActivityLog activityLog) {
+	public void addActivityLog(ActivityName name, double balanceChange, LocalDateTime timeStamp, String info) {
+		ActivityLog log = new ActivityLog(name, balanceChange, timeStamp, info);
+		addActivityLog(log);
+	}
+	
+	public void addActivityLog(ActivityName name, double balanceChange) {
+		addActivityLog(name, balanceChange, LocalDateTime.now(),"");
 	}
 
 	public void printActivityLog() {

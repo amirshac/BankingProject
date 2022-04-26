@@ -300,40 +300,8 @@ public class Input {
 		return number;
 	}
 	
-	/**
-	 * Gets input until valid, using class validity flags
-	 * @return String
-	 */
-	/*
-	public static String getInputUntilValid() {
-		String newString = new String();
-		if (messageEnterInput!= null) System.out.println(messageEnterInput);
-		
-		newString = scanner.nextLine();
-		
-		// remember string in class too
-		inputString = newString;
-		
-		return newString;
-		
+	public static void pressAnyKeyToContinue() {
+		System.out.println("Press any key to continue...");
+		scanner.nextLine();
 	}
-	
-	*/
-	/*
-	public boolean checkValidityAccordingToFlags(String str) {
-		boolean result = true;
-		
-		if (validityCheckLength) result = isValidInputLength(str, validityMinLength, validityMinLength);
-		if (result == false) return false;
-		
-		if ((validityMustContainNumber)&&(validityMustContainLetter)) result = isValidInputMustContainNumberAndLetter(str); 
-		if (result == false) return false;
-		
-		if (validityMustContainOnlyNumber) result = isValidInput
-		validityMustContainLetter = false;
-		validityMustContainOnlyNumber = false;
-		validityMustContainOnlyLetter = false;
-		
-		return result;
-	}*/
 }

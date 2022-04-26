@@ -2,6 +2,7 @@ package Banking.Users;
 import java.time.LocalDate;
 
 import Banking.Account.Account;
+import Banking.ActivityLog.ActivityName;
 import Banking.Input.Input;
 
 public class AccountUser extends Person {
@@ -66,7 +67,6 @@ public class AccountUser extends Person {
 	public void setMonthlyIncome(double monthlyIncome) {
 		this.monthlyIncome = monthlyIncome;
 	}
-
 	
 	public Account getAccount() {
 		return account;
@@ -125,8 +125,10 @@ public class AccountUser extends Person {
 	 * displays account balance
 	 */
 	public void checkBalance() {
-		double balance = this.account.getBalance();
-		System.out.println("Account balance: " + balance);
+		double balance = account.getBalance();
+		System.out.println(account.getAccountProperties()+ " account balance: " + balance);
+		
+		Input.pressAnyKeyToContinue();
 	}
 	
 	/**
@@ -134,7 +136,7 @@ public class AccountUser extends Person {
 	 */
 	public void makeDeposit() {
 		final float MIN_DEPOSIT = 0f;
-		double deposit = 0f;
+		double amount = 0f;
 		
 		System.out.println("Deposit:");
 		
@@ -144,8 +146,10 @@ public class AccountUser extends Person {
 		Input.setMessageEnterInput("Enter deposit amount:");
 		Input.setMessageInvalidInput("Amount must be alteast 0");
 		
-		deposit = Input.getDoubleUntilValidMin(MIN_DEPOSIT);
-		account.deposit(deposit);
+		amount = Input.getDoubleUntilValidMin(MIN_DEPOSIT);
+		account.deposit(amount);
+		
+		account.addActivityLog(ActivityName.DEPOSIT, amount);
 		
 		checkBalance();
 	}
@@ -171,8 +175,17 @@ public class AccountUser extends Person {
 		Input.setMessageInvalidInput("Can't withdraw more than your daily amount: " + maxWithdrawal);
 		
 		amount = Input.getDoubleUntilValid(0, maxWithdrawal);
-		
+				
 		account.withdraw(amount);
+		
+		account.addActivityLog(ActivityName.WITHDRAWAL, (-1)*(amount));
+		
 		checkBalance();
+}
+	
+	
+	public void reportActivity() {
+		account.printActivityLog();
+		Input.pressAnyKeyToContinue();
 	}
 }

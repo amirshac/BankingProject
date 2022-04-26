@@ -56,6 +56,10 @@ public class AppEngine {
 		}
 	}
 	
+	/**
+	 * Plays 'welcome menu' and activates functions according to user input
+	 */
+	
 	private void handleWelcomeScreen() {
 		currentMenu = welcomeMenu;
 		currentMenu.play();
@@ -82,7 +86,41 @@ public class AppEngine {
 		}
 	}
 	
-	// TODO: user lock mechanism after 3 tries
+	/**
+	 * Plays 'account menu' and activates functions according to user input
+	 */
+	private void handleAccountMenu() {
+		currentMenu = accountMenu;
+		currentMenu.play();
+		
+		switch(currentMenu.getChoice()) {
+		case "B":
+			currentUser.checkBalance();
+			break;
+			
+		case "D":
+			currentUser.makeDeposit();
+			break;
+			
+		case "W":
+			currentUser.withdraw();
+			break;
+		
+		case "A":
+			currentUser.reportActivity();
+			break;
+			
+		case "Q":
+			logOut();
+			break;
+			
+		default:
+			state = AppState.LOGGED_IN;
+			break;
+		}
+	}
+	
+	// TODO: user lock mechanism time
 	public void handleLoginScreen() {
 		final String MSG_USERNAME_DOESNT_EXIST = "Username does not exist\n";
 		final String MSG_INVALID_CREDENTIALS = "Invalid credentials. Try again\n";
@@ -247,32 +285,6 @@ public class AppEngine {
 		System.out.println();
 	}
 	
-	public void handleAccountMenu() {
-		currentMenu = accountMenu;
-		currentMenu.play();
-		
-		switch(currentMenu.getChoice()) {
-		case "B":
-			currentUser.checkBalance();
-			break;
-			
-		case "D":
-			currentUser.makeDeposit();
-			break;
-			
-		case "W":
-			currentUser.withdraw();
-			break;
-			
-		case "Q":
-			logOut();
-			break;
-			
-		default:
-			state = AppState.LOGGED_IN;
-			break;
-		}
-	}
 	
 	private void quit() {
 		System.out.println("Quitting, goodbye!");
