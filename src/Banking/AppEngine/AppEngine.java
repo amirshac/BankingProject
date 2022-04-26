@@ -114,6 +114,10 @@ public class AppEngine {
 			currentUser.transferFunds();
 			break;
 			
+		case "L":
+			currentUser.getLoan();
+			break;
+			
 		case "Q":
 			logOut();
 			break;

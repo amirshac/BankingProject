@@ -183,7 +183,7 @@ public class DataBase {
 		income = 0;
 		balance = 0;
 		
-		person = new Person("Donald", "Trump", "0520000001", LocalDate.of(1946, 7, 14));
+		person = new Person("Donald", "Trump CEO", "0520000001", LocalDate.of(1946, 7, 14));
 		account = new Account(balance, AccountProperties.TITANIUM);
 		bankManager = new BankManagerUser(person, income, account);
 		

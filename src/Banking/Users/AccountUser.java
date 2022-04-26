@@ -185,9 +185,10 @@ public class AccountUser extends Person {
 		checkBalance();
 }
 	
+	// TODO: elaborate on reportactivity - sorted list, input time
 	public void reportActivity() {
 		account.printActivityLog();
-		Input.pressAnyKeyToContinue();
+		checkBalance();
 	}
 	
 	public void transferFunds() {
@@ -224,5 +225,32 @@ public class AccountUser extends Person {
 		
 		System.out.println("Transfer complete");
 		checkBalance();
+	}
+	
+	public void getLoan() {
+		final int MAX_PAYMENTS = 60;
+		final double MAX_INPUT = 9999999;
+		
+		double maxLoan = account.getAccountProperties().getMaxLoan();
+		double amount;
+		
+		Input.clear();
+		Input.setMessageEnterInput("Enter loan amount:");
+		Input.setMessageInvalidInput("Loan must be positive number");
+		
+		amount = Input.getPositiveDoubleUntilValidMax(MAX_INPUT);
+		
+		if (amount == 0) {
+			System.out.println("You have chosen 0, aborting loan process");
+			Input.pressAnyKeyToContinue();
+			return;
+		}
+		
+		if (amount > maxLoan) {
+			System.out.println(account.getAccountProperties()+" accounts can't loan more than" + maxLoan + " aborting..");
+			Input.pressAnyKeyToContinue();
+			return;
+		}
+		
 	}
 }
