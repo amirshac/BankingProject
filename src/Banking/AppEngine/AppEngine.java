@@ -12,11 +12,12 @@ import Banking.Input.*;
 
 public class AppEngine {
 	protected AppState state;
-//	protected AccountUser[] userArr;
 	protected AccountUser currentUser;
 	protected Menu currentMenu;
 	protected Menu welcomeMenu;
 	protected Menu accountMenu;
+	protected Menu managerMenu;
+	protected Menu billsMenu;
 	protected boolean keepGoing;
 	
 	public AppEngine() {
@@ -30,6 +31,8 @@ public class AppEngine {
 	public void initMenus() {
 		welcomeMenu = new MenuWelcome();
 		accountMenu = new MenuAccount();
+		managerMenu = new MenuManager();
+		billsMenu = new MenuBills();
 	}
 	
 	public void play() {
@@ -48,8 +51,20 @@ public class AppEngine {
 			handleWelcomeScreen();
 			break;
 		case LOGGED_IN:
-			handleAccountMenu();
+			if (this.currentUser instanceof BankManagerUser)
+				this.state = AppState.MANAGER_LOGGED_IN;
+			else
+				handleAccountMenu();
 			break;
+			
+		case MANAGER_LOGGED_IN:
+			//handleManagerMenu();
+			break;
+			
+		case BILLS_MENU:
+			handleBillsMenu();
+			break;
+			
 		default:
 			handleWelcomeScreen();
 			break;
@@ -118,6 +133,10 @@ public class AppEngine {
 			currentUser.getLoan();
 			break;
 			
+		case "P":
+			state = AppState.BILLS_MENU;
+			break;
+			
 		case "Q":
 			logOut();
 			break;
@@ -127,6 +146,62 @@ public class AppEngine {
 			break;
 		}
 	}
+	
+	private void handleBillsMenu() {
+		currentMenu = billsMenu;
+		currentMenu.play();
+		
+		switch(currentMenu.getChoice()) {
+			
+		case "Q":
+			state = AppState.LOGGED_IN;
+			break;
+			
+		default:
+			state = AppState.BILLS_MENU;
+			break;
+		}
+	}
+	/*
+	private void handleManagerMenu() {
+		currentMenu = managerMenu;
+		currentMenu.play();
+		
+		switch(currentMenu.getChoice()) {
+		case "B":
+			currentUser.checkBalance();
+			break;
+			
+		case "D":
+			currentUser.makeDeposit();
+			break;
+			
+		case "W":
+			currentUser.withdraw();
+			break;
+		
+		case "A":
+			currentUser.reportActivity();
+			break;
+			
+		case "T":
+			currentUser.transferFunds();
+			break;
+			
+		case "L":
+			currentUser.getLoan();
+			break;
+			
+		case "Q":
+			logOut();
+			break;
+			
+		default:
+			state = AppState.LOGGED_IN;
+			break;
+		
+	}
+	*/
 	
 	// TODO: user lock mechanism time
 	public void handleLoginScreen() {
@@ -208,6 +283,7 @@ public class AppEngine {
 			result = true;
 		}
 		
+
 		this.state = AppState.LOGGED_IN;
 
 		return result;

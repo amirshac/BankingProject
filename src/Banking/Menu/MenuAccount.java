@@ -8,6 +8,7 @@ public class MenuAccount extends Menu {
 		addOption("withdraw", "W");
 		addOption("Transfer money to another account", "T");
 		addOption("Get a loan", "L");
+		addOption("Pay Bills", "P");
 		addOption("Activity Report", "A");
 		addOption("Log out","Q");
 	}

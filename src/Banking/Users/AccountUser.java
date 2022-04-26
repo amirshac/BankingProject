@@ -1,6 +1,5 @@
 package Banking.Users;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import Banking.Account.Account;
 import Banking.ActivityLog.ActivityName;
@@ -236,7 +235,7 @@ public class AccountUser extends Person {
 		account.withdraw(amount);
 		receiverUser.account.deposit(amount);
 		
-		account.addActivityLog(ActivityName.TRANSFER, (-1)amount, "Transfered to " + phoneNumber);
+		account.addActivityLog(ActivityName.TRANSFER, (-1)*amount, "Transfered to " + phoneNumber);
 		receiverUser.account.addActivityLog(ActivityName.RECEIVE, amount, "Received from " + this.getPhoneNumber());
 	}
 		

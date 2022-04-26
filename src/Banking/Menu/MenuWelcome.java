@@ -1,5 +1,6 @@
 package Banking.Menu;
 
+
 public class MenuWelcome extends Menu{
 	public MenuWelcome() {
 		super("Welcome to ADJB banking system:");

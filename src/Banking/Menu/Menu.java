@@ -6,8 +6,6 @@ public abstract class Menu {
 	private static final String DEFAULT_MENU_TITLE = "MENU";
 	private static final String DEFAULT_ERROR_MSG = "Wrong input please try again";
 	private static final int MENU_MAX_SIZE = 10;
-
-//	public static Scanner scanner = new Scanner(System.in);
 	
 	protected int index;
 	protected String title;
@@ -39,6 +37,7 @@ public abstract class Menu {
 		commandList[index] = optionCommand;
 		index ++;
 	}
+	
 	
 	public void setTitle(String title) {
 		this.title = title;
