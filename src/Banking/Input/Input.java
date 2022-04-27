@@ -280,7 +280,7 @@ public class Input {
 	
 	/**
 	 * Asks for numerical inputs to construct a localdate object
-	 * @return
+	 * @return LocalDate object
 	 */
 	public static LocalDate getDate() {
 		LocalDate date = null;

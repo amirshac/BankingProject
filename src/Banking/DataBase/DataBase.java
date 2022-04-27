@@ -6,7 +6,6 @@ import Banking.ActivityLog.ActivityLog;
 
 public class DataBase {
 	
-//	public static LinkedList<Person> personList = new LinkedList<>();
 	private static int DB_SIZE = 100;
 	private static int DB_index = 0;
 	
@@ -173,7 +172,7 @@ public class DataBase {
 	 */
 	public static void populateDataBase() {
 		populateUsersDB();
-		populateAccountActivitiesDB();
+		//populateAccountActivitiesDB();
 	}
 	
 	private static void populateUsersDB() {
@@ -205,7 +204,7 @@ public class DataBase {
 		addUserToDB(accountUser);
 		
 		income = 9000;
-		balance = 22453;	
+		balance = 4000;	
 		person = new Person("Benny", "Bigsby", "0520000003", LocalDate.of(1988, 1, 4));
 		account = new Account(balance, AccountProperties.SILVER);
 		credentials = new Credentials("benny", "benny11");
@@ -213,7 +212,7 @@ public class DataBase {
 		addUserToDB(accountUser);
 		
 		income = 15000;
-		balance = 34898;	
+		balance = 5000;	
 		person = new Person("Cody", "Connor", "0520000004", LocalDate.of(1960, 5, 23));
 		account = new Account(balance, AccountProperties.GOLD);
 		credentials = new Credentials("cody", "cody11");
@@ -221,7 +220,7 @@ public class DataBase {
 		addUserToDB(accountUser);
 		
 		income = 20000;
-		balance = 943112;	
+		balance = 6000;	
 		person = new Person("Dory", "Dorshowitz", "0520000005", LocalDate.of(1962, 4, 23));
 		account = new Account(balance, AccountProperties.TITANIUM);
 		credentials = new Credentials("dory", "dory11");
