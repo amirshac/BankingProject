@@ -110,7 +110,7 @@ public class AppEngine {
 			System.out.println();
 			System.out.println(accountUser.getFullName()+ " logged in!\n");
 			
-			accountUser.userInterface.menuAccount.play();
+			accountUser.playMainMenu();
 		}
 		
 		/**
@@ -208,6 +208,8 @@ public class AppEngine {
 		}
 		
 		currentUser.playMainMenu(); 
+		
+		this.play();
 	}
 
 			

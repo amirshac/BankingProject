@@ -12,7 +12,7 @@ public class AccountUser extends Person {
 	protected Account account;
 	protected Credentials credentials;
 	protected boolean isLocked = false;
-	public UserInterface userInterface;
+	protected UserInterface ui;
 	
 	// constructors 
 
@@ -21,7 +21,7 @@ public class AccountUser extends Person {
 		this.account = account;
 		this.monthlyIncome = monthlyIncome;
 		this.credentials = credentials;
-		userInterface = new UserInterface(); // UI object needs to refer to user object to activate functions
+		ui = new UserInterface(); // UI object needs to refer to user object to activate functions
 	}
 	
 	// SETTERS GETTERS
@@ -75,13 +75,13 @@ public class AccountUser extends Person {
 	
 	public void playMainMenu() {
 		do {
-			userInterface.menuAccount.play();
+			ui.menuAccount.play();
 			handleMainMenu();
-		}while (!userInterface.menuAccount.getChoice().equals("Q") );
+		}while (!ui.menuAccount.getChoice().equals("Q") );
 	}
 	
 	protected void handleMainMenu() {
-		switch(userInterface.menuAccount.getChoice()) {
+		switch(ui.menuAccount.getChoice()) {
 		case "B":
 			checkBalance();
 			break;
@@ -119,20 +119,20 @@ public class AccountUser extends Person {
 		}	
 	}
 	
-	private void logOut() {
+	protected void logOut() {
 		System.out.println("Logging out...\n");
-				
+			
 		System.out.println(getUserName() + " logged out.\n");
 	}
 	
-	public void printAccountActivityLog() {
+	protected void printAccountActivityLog() {
 		this.account.printActivityLog();
 	}
 	
 	/**
 	 * displays account balance
 	 */
-	public void checkBalance() {
+	protected void checkBalance() {
 		System.out.println(account.getAccountProperties()+ " account balance: " + account.getBalance());
 		Input.pressAnyKeyToContinue();
 	}
@@ -140,7 +140,7 @@ public class AccountUser extends Person {
 	/**
 	 * Pays transaction fee to bank manager and updates logs
 	 */
-	public void payTransactionFee() {
+	protected void payTransactionFee() {
 		AccountUser bankManager = DataBase.getBankAccountUser();
 		float fee = account.getAccountProperties().getOperationFee();
 		
@@ -154,7 +154,7 @@ public class AccountUser extends Person {
 	/**
 	 * Makes a deposit
 	 */
-	public void makeDeposit() {
+	protected void makeDeposit() {
 		final float MIN_DEPOSIT = 0f;
 		double amount = 0f;
 		
@@ -181,8 +181,9 @@ public class AccountUser extends Person {
 	
 	/**
 	 * withdraw money
+	 * 
 	 */
-	public void withdraw() {
+	protected void withdraw() {
 		double maxWithdrawal = account.getAccountProperties().GetMaxWithdrawalDaily();
 		double amount = 0;
 		
@@ -213,13 +214,13 @@ public class AccountUser extends Person {
 	}
 	
 	// TODO: elaborate on reportactivity - sorted list, input time
-	public void reportActivity() {
+	protected void reportActivity() {
 		account.printActivityLog();
 		account.printLoan();
 		checkBalance();
 	}
 	
-	public void transferFunds() {
+	protected void transferFunds() {
 		final double TRANSFER_MAX = 2000;
 		double amount = 0;
 		String phoneNumber = null;
@@ -262,7 +263,7 @@ public class AccountUser extends Person {
 	}
 		
 	// TODO: implement bank manager account to take loan from
-	public void getLoan() {
+	protected void getLoan() {
 		final int MAX_PAYMENTS = 60;
 		final int MIN_PAYMENTS = 1;
 		final double MAX_INPUT = 9999999;
@@ -336,13 +337,13 @@ public class AccountUser extends Person {
 	
 	protected void playBillsScreen() {
 		do {
-			userInterface.menuBills.play();
+			ui.menuBills.play();
 			handleBillsMenu();
-		}while (!userInterface.menuBills.getChoice().equals("Q") );
+		}while (!ui.menuBills.getChoice().equals("Q") );
 	}
 	
 	protected void handleBillsMenu() {
-		switch(userInterface.menuBills.getChoice()) {
+		switch(ui.menuBills.getChoice()) {
 		case "W":
 			payWaterBill();
 			break;
@@ -364,25 +365,25 @@ public class AccountUser extends Person {
 		
 	}
 	
-	public void payWaterBill() {
+	protected void payWaterBill() {
 		payBill();
 		System.out.println("Paid water bill");
 		checkBalance();
 	}
 	
-	public void payElectricBill() {
+	protected void payElectricBill() {
 		payBill();
 		System.out.println("Paid electric bill");
 		checkBalance();
 	}
 	
 	//TODO: pay loan
-	public void payBank() {
+	protected void payBank() {
 		System.out.println("not implemented");
 		Input.pressAnyKeyToContinue();
 	}
 	
-	public void payBill() {
+	protected void payBill() {
 		final double MAX_AMOUNT = 5000;
 		double amount;
 		

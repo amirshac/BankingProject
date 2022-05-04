@@ -83,7 +83,6 @@ public abstract class Menu {
 			
 		}
 		this.choice = inputStr;	
-		
 	}
 	
 	/**

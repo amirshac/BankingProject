@@ -16,29 +16,14 @@ public class UserInterface {
 	public Menu menuWelcome;
 	public Menu menuAccount;
 	public Menu menuBills;
+	public Menu menuAccountManager;
 	
 	
 	public UserInterface() {
 		menuWelcome = new MenuWelcome();
 		menuAccount = new MenuAccount();
 		menuBills = new MenuBills();
+		menuAccountManager = new MenuAccountManager();
 	}
 
-	/*
-	public void setMenu(Menu menu) {
-		menuCurrent = menu;
-	}
-	
-	public void play() {
-		menuCurrent.play();
-	}
-	/*
-	/**
-	 * get current menu choice as string - returned from 'play' function
-	 * @return string
-	 */
-	/*
-	public String getChoice() {
-		return menuCurrent.getChoice();
-	}*/
 }
