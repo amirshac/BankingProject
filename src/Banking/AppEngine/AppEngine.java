@@ -103,7 +103,12 @@ public class AppEngine {
 			if (tries >= LOCKOUT_TRIES && accountUser == null) {
 				System.out.println("Account locked");
 				// TODO: set time for lockout
-				DataBase.userArr[index].lockAccount();
+				//DataBase.userArr[index].lockAccount();
+				AccountUser accountToLock = DataBase.getAccountUserUsingIndex(index);
+				accountToLock.lockAccount();
+				DataBase.getBankAccountUser().addToLockedAccounts(accountToLock);
+				
+				
 				return;
 			}
 			 

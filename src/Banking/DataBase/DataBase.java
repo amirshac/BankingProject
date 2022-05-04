@@ -163,8 +163,8 @@ public class DataBase {
 		return userArr[index];
 	}
 	
-	public static AccountUser getBankAccountUser() {
-		return getAccountUserUsingIndex(0);
+	public static BankManagerUser getBankAccountUser() {
+		return (BankManagerUser)getAccountUserUsingIndex(0);
 	}
 	
 	/**

@@ -21,7 +21,7 @@ public class AccountUser extends Person {
 		this.account = account;
 		this.monthlyIncome = monthlyIncome;
 		this.credentials = credentials;
-		ui = new UserInterface(); // UI object needs to refer to user object to activate functions
+		ui = new UserInterface();
 	}
 	
 	// SETTERS GETTERS
