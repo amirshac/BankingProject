@@ -132,7 +132,6 @@ public class AccountUser extends Person {
 		double maxWithdrawal = account.getAccountProperties().GetMaxWithdrawalDaily();
 		double amount = 0;
 		
-		// TODO: current daily withdrawal should be addressed and counted
 		Input.clear();
 		Input.setMessageEnterInput("Enter withdrawal amount:");
 		Input.setMessageInvalidInput("Can't withdraw more than your daily amount: " + maxWithdrawal);
@@ -290,6 +289,7 @@ public class AccountUser extends Person {
 		checkBalance();
 	}
 	
+	//TODO: pay loan
 	public void payBank() {
 		System.out.println("not implemented");
 		Input.pressAnyKeyToContinue();
