@@ -28,11 +28,6 @@ public abstract class Menu {
 		choice = new String();
 		index = 0;
 	}
-
-	/**
-	 * Each inherited menu will implement its own logic
-	 */
-	protected abstract void handleChoice();
 	
 	/**
 	 * Add an option and string command to the menu
@@ -89,9 +84,6 @@ public abstract class Menu {
 		}
 		this.choice = inputStr;	
 		
-		// each menu will implement its own logic
-		handleChoice();
-		if (!this.choice.equals("Q")) this.play(); 
 	}
 	
 	/**

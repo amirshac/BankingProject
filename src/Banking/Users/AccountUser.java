@@ -12,7 +12,7 @@ public class AccountUser extends Person {
 	protected Account account;
 	protected Credentials credentials;
 	protected boolean isLocked = false;
-	public UserInterface UI;
+	public UserInterface userInterface;
 	
 	// constructors 
 
@@ -21,7 +21,7 @@ public class AccountUser extends Person {
 		this.account = account;
 		this.monthlyIncome = monthlyIncome;
 		this.credentials = credentials;
-		UI = new UserInterface(this); // UI object needs to refer to user object to activate functions
+		userInterface = new UserInterface(); // UI object needs to refer to user object to activate functions
 	}
 	
 	// SETTERS GETTERS
@@ -70,7 +70,61 @@ public class AccountUser extends Person {
 		return msg;
 	}
 	
+	
 	// METHODS
+	
+	public void playMainMenu() {
+		do {
+			userInterface.menuAccount.play();
+			handleMainMenu();
+		}while (!userInterface.menuAccount.getChoice().equals("Q") );
+	}
+	
+	protected void handleMainMenu() {
+		switch(userInterface.menuAccount.getChoice()) {
+		case "B":
+			checkBalance();
+			break;
+			
+		case "D":
+			makeDeposit();
+			break;
+			
+		case "W":
+			withdraw();
+			break;
+		
+		case "A":
+			reportActivity();
+			break;
+			
+		case "T":
+			transferFunds();
+			break;
+			
+		case "L":
+			getLoan();
+			break;
+			
+		case "P":
+			playBillsScreen();
+			break;
+			
+		case "Q":
+			logOut();
+			break;
+			
+		default:
+			break;
+		}	
+	}
+	
+	private void logOut() {
+		System.out.println("Logging out...\n");
+				
+		System.out.println(getUserName() + " logged out.\n");
+	}
+	
 	public void printAccountActivityLog() {
 		this.account.printActivityLog();
 	}
@@ -277,6 +331,39 @@ public class AccountUser extends Person {
 		payTransactionFee();
 	}
 	
+	
+	//-----------BILLS MENU SECTION----------------------------------------------
+	
+	protected void playBillsScreen() {
+		do {
+			userInterface.menuBills.play();
+			handleBillsMenu();
+		}while (!userInterface.menuBills.getChoice().equals("Q") );
+	}
+	
+	protected void handleBillsMenu() {
+		switch(userInterface.menuBills.getChoice()) {
+		case "W":
+			payWaterBill();
+			break;
+			
+		case "E":
+			payElectricBill();
+			break;
+			
+		case "B":
+			payBank();
+			break;
+		
+		case "Q":
+			break;
+			
+		default:
+			break;
+		}
+		
+	}
+	
 	public void payWaterBill() {
 		payBill();
 		System.out.println("Paid water bill");
@@ -309,4 +396,5 @@ public class AccountUser extends Person {
 		
 		payTransactionFee();
 	}
+
 }

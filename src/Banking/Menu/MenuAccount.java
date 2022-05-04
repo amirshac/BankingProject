@@ -12,54 +12,5 @@ public class MenuAccount extends Menu {
 		addOption("Activity Report", "A");
 		addOption("Log out","Q");
 	}
-
-	/**
-	 * Plays 'account menu' and activates functions according to user input
-	 */
-	protected void handleChoice(){
-		switch(choice) {
-		case "B":
-			currentUser.checkBalance();
-			break;
-			
-		case "D":
-			currentUser.makeDeposit();
-			break;
-			
-		case "W":
-			currentUser.withdraw();
-			break;
-		
-		case "A":
-			currentUser.reportActivity();
-			break;
-			
-		case "T":
-			currentUser.transferFunds();
-			break;
-			
-		case "L":
-			currentUser.getLoan();
-			break;
-			
-		case "P":
-			currentUser.UI.menuBills.play();
-			break;
-			
-		case "Q":
-			logOut();
-			break;
-			
-		default:
-			break;
-		}
-	}		
-
-	private void logOut() {
-		System.out.println("Logging out...\n");
-				
-		System.out.println(currentUser.getUserName() + " logged out.\n");
-		
-		currentUser = null;
-	}
+	
 }
