@@ -108,7 +108,6 @@ public class AppEngine {
 				accountToLock.lockAccount();
 				DataBase.getBankAccountUser().addToLockedAccounts(accountToLock);
 				
-				
 				return;
 			}
 			 
