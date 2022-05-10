@@ -112,6 +112,7 @@ public class Account {
 	}
 
 	
+	
 	public void printActivityLog() {
 		if (activityLogIndex <= 0) {
 			System.out.println("No activity log found");
