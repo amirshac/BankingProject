@@ -111,10 +111,5 @@ public class Account {
 	public void addActivityLog(ActivityName name, double balanceChange, String info) {
 		addActivityLog(name, balanceChange, LocalDateTime.now(),info);
 	}
-
-	public void printLoan() {
-		if (loan == null) return;
-		System.out.println(loan);
-	}
 	
 }

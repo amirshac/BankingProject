@@ -134,7 +134,7 @@ public class AccountUser extends Person {
 	 * displays account balance
 	 */
 	protected void checkBalance() {
-		System.out.println(account.getAccountProperties()+ " account balance: " + account.getBalance());
+		Printer.print(this.getAccount());
 		Input.pressAnyKeyToContinue();
 	}
 	
@@ -217,7 +217,7 @@ public class AccountUser extends Person {
 	// TODO: elaborate on reportactivity - sorted list, input time
 	protected void reportActivity() {
 		Printer.print(this.getAccount().getActivityLog());
-		account.printLoan();
+		Printer.print(this.getAccount().getLoan());
 		checkBalance();
 	}
 	

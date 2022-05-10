@@ -51,27 +51,6 @@ public class Credentials {
 		boolean result = Input.isValidInputMustContainNumberAndLetter(str, MIN_LENGTH, MAX_LENGTH);
 		
 		return result;
-		
-		/*
-		 * 
-		String numberRegex = ".*[0-9].*";
-		String charRegex = ".*[a-z].*";
-				
-		// required length
-		if ( (str.length()<MIN_LENGTH) || (str.length()>MAX_LENGTH) )
-			return false;
-		
-		// if contains no numbers - false
-		if (!str.matches(numberRegex))
-			return false;
-		
-		// if contains no letters - false
-		if (!str.toLowerCase().matches(charRegex))
-			return false;
-		
-		return true;
-		
-		*/
 	}
 	
 	/**
@@ -87,19 +66,6 @@ public class Credentials {
 		boolean result = Input.isValidInputMustContainOnlyNumbersAndLetters(str, MIN_LENGTH, MAX_LENGTH);
 		
 		return result;
-		/*
-		String onlyNumbersAndLettersRegex = "[a-zA-Z0-9]*";
-				
-		// required length
-		if ( (str.length()<MIN_LENGTH) || (str.length()>MAX_LENGTH) )
-			return false;
-		
-		// must contain ONLY digits and letters
-		if ( !str.matches(onlyNumbersAndLettersRegex) )
-			return false;			
-		
-		return true;
-		*/
 	}
 	
 }
