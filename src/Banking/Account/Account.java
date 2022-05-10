@@ -1,6 +1,7 @@
 package Banking.Account;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 
 import Banking.ActivityLog.ActivityLog;
 import Banking.ActivityLog.ActivityName;
@@ -9,15 +10,13 @@ import Banking.Loan.Loan;
 public class Account {
 	private static final double DEFAULT_BALANCE = 0f;
 	private static final AccountProperties DEFAULT_ACCOUNT_PROPERTIES = AccountProperties.BRONZE;
-	private static final int ACTIVITY_LOG_SIZE = 100;
 	
 	protected double balance;
 	protected AccountProperties accountProperties;
 	protected Loan loan;
 	protected double dailyWithdrawal; 
 	
-	protected ActivityLog[] activityLogs;
-	private int activityLogIndex;
+	protected LinkedList<ActivityLog> activityLogList;
 	
 	// constructors 
 	public Account() {
@@ -32,8 +31,7 @@ public class Account {
 		super();
 		this.balance = balance;
 		setAccountProperties(accountProperties);
-		activityLogs = new ActivityLog[ACTIVITY_LOG_SIZE];
-		activityLogIndex = 0;
+		activityLogList = new LinkedList<ActivityLog>();
 		loan = null;
 		dailyWithdrawal = 0;
 	}
@@ -97,12 +95,7 @@ public class Account {
 	 * @param activityLog
 	 */
 	public void addActivityLog(ActivityLog activityLog) {	
-		if (activityLogIndex >= ACTIVITY_LOG_SIZE) {
-			System.out.println("Activity log full, can't add logs");
-			return;
-		}	
-		activityLogs[activityLogIndex] = activityLog;
-		activityLogIndex ++;
+		activityLogList.addLast(activityLog);
 	}
 	
 	public void addActivityLog(ActivityName name, double balanceChange, LocalDateTime timeStamp, String info) {
@@ -118,6 +111,7 @@ public class Account {
 		addActivityLog(name, balanceChange, LocalDateTime.now(),info);
 	}
 
+	
 	public void printActivityLog() {
 		if (activityLogIndex <= 0) {
 			System.out.println("No activity log found");

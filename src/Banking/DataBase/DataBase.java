@@ -228,14 +228,6 @@ public class DataBase {
 		addUserToDB(accountUser);
 	}
 	
-	private static void populateAccountActivitiesDB() {
-		// TODO populate account acitivies in database
-		AccountUser accountUser = userArr[4];
-		
-		ActivityLog activityLog = new ActivityLog();
-		accountUser.getAccount().addActivityLog(activityLog);
-	
-	}
 	
 	public static void print() {
 		System.out.println(DB_index + " elements in database:\n");
