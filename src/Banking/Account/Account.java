@@ -2,6 +2,7 @@ package Banking.Account;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.List;
 
 import Banking.ActivityLog.ActivityLog;
 import Banking.ActivityLog.ActivityName;
@@ -90,10 +91,10 @@ public class Account {
 		return this.dailyWithdrawal;
 	}
 	
-	/**
-	 * Adds activitylog to activity history array
-	 * @param activityLog
-	 */
+	public List<?> getActivityLog(){
+		return this.activityLogList;
+	}
+	
 	public void addActivityLog(ActivityLog activityLog) {	
 		activityLogList.addLast(activityLog);
 	}
@@ -111,19 +112,6 @@ public class Account {
 		addActivityLog(name, balanceChange, LocalDateTime.now(),info);
 	}
 
-	
-	
-	public void printActivityLog() {
-		if (activityLogIndex <= 0) {
-			System.out.println("No activity log found");
-			return;
-		}
-		
-		System.out.println(activityLogIndex + " activities in log:");
-		for (int i=0; i<activityLogIndex; i++)
-			System.out.println(activityLogs[i]);
-	}
-	
 	public void printLoan() {
 		if (loan == null) return;
 		System.out.println(loan);

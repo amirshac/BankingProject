@@ -6,6 +6,7 @@ import Banking.DataBase.DataBase;
 import Banking.Input.Input;
 import Banking.Loan.Loan;
 import Banking.Menu.UserInterface;
+import Banking.Printer.Printer;
 
 public class AccountUser extends Person {	
 	protected double monthlyIncome;
@@ -126,7 +127,7 @@ public class AccountUser extends Person {
 	}
 	
 	protected void printAccountActivityLog() {
-		this.account.printActivityLog();
+		Printer.print(this.getAccount().getActivityLog());
 	}
 	
 	/**
@@ -215,7 +216,7 @@ public class AccountUser extends Person {
 	
 	// TODO: elaborate on reportactivity - sorted list, input time
 	protected void reportActivity() {
-		account.printActivityLog();
+		Printer.print(this.getAccount().getActivityLog());
 		account.printLoan();
 		checkBalance();
 	}

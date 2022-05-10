@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import Banking.Account.Account;
 import Banking.Input.Input;
+import Banking.Printer.Printer;
 
 public class BankManagerUser extends AccountUser{
 	
@@ -71,7 +72,7 @@ public class BankManagerUser extends AccountUser{
 		System.out.println("Manager information");
 		System.out.println("---------------------");
 		System.out.println(account);
-		account.printActivityLog();
+		Printer.print(this.getAccount().getActivityLog());
 		Input.pressAnyKeyToContinue();
 	}
 	
