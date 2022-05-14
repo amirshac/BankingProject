@@ -66,6 +66,11 @@ public class Account {
 		balance += amount;
 	}
 	
+	public void depositWithLog(double amount) {
+		deposit(amount);
+		addActivityLog(ActivityName.DEPOSIT, amount);
+	}
+	
 	public void withdraw(double amount) {
 		balance -= amount;
 	}

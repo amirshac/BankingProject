@@ -29,7 +29,6 @@ public class AccountUser extends Person {
 	public Account getAccount() {
 		return account;
 	}
-
 	
 	public void setCredentials(String user, String password) {
 		this.credentials = new Credentials(user, password);
@@ -169,16 +168,12 @@ public class AccountUser extends Person {
 		
 		amount = Input.getDoubleUntilValidMin(MIN_DEPOSIT);
 		
-		executeDeposit(amount);
+		account.depositWithLog(amount);
+		payTransactionFee();
 		
 		checkBalance();
 	}
 	
-	protected void executeDeposit(double amount) {
-		account.deposit(amount);
-		account.addActivityLog(ActivityName.DEPOSIT, amount);
-		payTransactionFee();
-	}
 	
 	/**
 	 * withdraw money
